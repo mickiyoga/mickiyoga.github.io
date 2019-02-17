@@ -150,12 +150,17 @@ a:focus {
 
 .intro {
     display: table;
-    height: 100%;
     width: 100%;
+    height: auto;
     padding: 100px 0;
     text-align: center;
     color: #fff;
-    background: url(../img/intro.jpg) no-repeat bottom center fixed;
+    background: url(../img/intro.jpg) no-repeat bottom center scroll;
+    background-color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
 }
 
 .accent {
@@ -184,6 +189,7 @@ a:focus {
 
 @media(min-width:768px) {
     .intro {
+        height: 100%;
         padding: 0;
     }
 
@@ -271,41 +277,25 @@ a:focus {
 }
 
 .content-section {
-    padding-top: 65px;
-}
-
-.bg-section-about {
-    background: url(../img/section-0.jpg) no-repeat center center fixed;
-    padding: 50px 0;
-}
-
-.bg-section-yoga {
-    background: url(../img/section-1.jpg) no-repeat center top fixed;
-    padding: 50px 0;
-}
-
-.bg-section-pt {
-    background: url(../img/section-0.jpg) no-repeat center center fixed;
-    padding: 50px 0;
-}
-
-.bg-section-pilates {
-    background: url(../img/section-1.jpg) no-repeat center top fixed;
-    padding: 50px 0;
-}
-
-.section-title {
-    color: #fff;
-    background-color: #000;
-    margin-bottom: 65px;
-
-    box-shadow: 0 0 40px 90px #000;
-    position: relative;
-    z-index: 99;
+    padding-top: 80px;
 }
 
 .bg-section {
+    width: 100%;
+    padding: 50px 0;
     color: #fff;
+}
+
+.bg-section-yoga {
+    background: url(../img/section-1.jpg) no-repeat center top scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.bg-section-pilates {
+    background: url(../img/section-0.jpg) no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -325,6 +315,10 @@ a:focus {
 }
 
 @media(min-width:767px) {
+    .content-section {
+        padding-top: 150px;
+    }
+
     #map {
         height: 400px;
         margin-top: 150px;
