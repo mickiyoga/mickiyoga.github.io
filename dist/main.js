@@ -4355,7 +4355,8 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$Main$init = 0;
+var $elm$core$Maybe$Nothing = {$: 'Nothing'};
+var $author$project$Main$init = $elm$core$Maybe$Nothing;
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -4462,7 +4463,6 @@ var $elm$core$Basics$add = _Basics_add;
 var $elm$core$Maybe$Just = function (a) {
 	return {$: 'Just', a: a};
 };
-var $elm$core$Maybe$Nothing = {$: 'Nothing'};
 var $elm$core$String$all = _String_all;
 var $elm$core$Basics$and = _Basics_and;
 var $elm$core$Basics$append = _Utils_append;
@@ -5168,15 +5168,25 @@ var $elm$browser$Browser$sandbox = function (impl) {
 };
 var $author$project$Main$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'Increment') {
-			return model + 1;
-		} else {
-			return model - 1;
+		switch (msg.$) {
+			case 'Home':
+				return $elm$core$Maybe$Nothing;
+			case 'Close':
+				return $elm$core$Maybe$Nothing;
+			default:
+				var chapter = msg.a;
+				return $elm$core$Maybe$Just(chapter);
 		}
 	});
-var $author$project$Main$Decrement = {$: 'Decrement'};
-var $author$project$Main$Increment = {$: 'Increment'};
-var $elm$html$Html$button = _VirtualDom_node('button');
+var $author$project$Main$Home = {$: 'Home'};
+var $author$project$Main$Chapter = F4(
+	function (title, colour, image, description) {
+		return {colour: colour, description: description, image: image, title: title};
+	});
+var $author$project$Main$Open = function (a) {
+	return {$: 'Open', a: a};
+};
+var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5187,6 +5197,7 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$li = _VirtualDom_node('li');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -5204,46 +5215,227 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
+var $elm$html$Html$p = _VirtualDom_node('p');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $author$project$Main$buttonExample = function (model) {
-	return A2(
+var $elm$html$Html$ul = _VirtualDom_node('ul');
+var $author$project$Main$yoga = A4(
+	$author$project$Main$Chapter,
+	'yoga',
+	'yellow',
+	'',
+	A2($elm$html$Html$div, _List_Nil, _List_Nil));
+var $author$project$Main$about = A4(
+	$author$project$Main$Chapter,
+	'about me',
+	'',
+	'',
+	A2(
 		$elm$html$Html$div,
-		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('content')
+			]),
 		_List_fromArray(
 			[
 				A2(
-				$elm$html$Html$button,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('button'),
-						$elm$html$Html$Attributes$class('is-primary'),
-						$elm$html$Html$Events$onClick($author$project$Main$Increment)
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('+')
-					])),
-				A2(
-				$elm$html$Html$div,
+				$elm$html$Html$p,
 				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$text(
-						$elm$core$String$fromInt(model))
+						$elm$html$Html$text('Yoga guide and personal trainer, Micaela \'Micki\' Romero.')
+					])),
+				A2(
+				$elm$html$Html$p,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text('I am based in South East Queensland.')
+					])),
+				A2(
+				$elm$html$Html$p,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text('My style and own view of teaching asanas (yoga poses) can be described as')
+					])),
+				A2(
+				$elm$html$Html$ul,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('martial arts meets yogi')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('healing, gentle ray of sunshine')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('challenging with a focus on alignment & breath')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('mellow and wise')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('soulful and sweaty')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('focused and grounding')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('playful flows')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('strong and calming')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('peaceful moving meditation')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('powerful, deep and nourishing')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('enthusiastic, playful and energetic')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('knowledgeable')
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('calm & centred with a new perception')
+							]))
+					])),
+				A2(
+				$elm$html$Html$p,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text('Try various ranges from my cool-as-a-cucumber   '),
+						A2(
+						$elm$html$Html$a,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick(
+								$author$project$Main$Open($author$project$Main$yoga))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('yoga')
+							])),
+						$elm$html$Html$text(', cardio yoga, or powerhouse personal training')
+					]))
+			])));
+var $elm$html$Html$button = _VirtualDom_node('button');
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $author$project$Main$chapterDetail = function (model) {
+	var modalClass = function () {
+		if (model.$ === 'Nothing') {
+			return 'modal';
+		} else {
+			return 'modal is-active';
+		}
+	}();
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class(modalClass)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('modal-background'),
+						$elm$html$Html$Events$onClick($author$project$Main$Home)
+					]),
+				_List_Nil),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('modal-content')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('box')
+							]),
+						_List_fromArray(
+							[
+								A2($elm$core$Maybe$withDefault, $author$project$Main$about, model).description
+							]))
 					])),
 				A2(
 				$elm$html$Html$button,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('button'),
-						$elm$html$Html$Attributes$class('is-danger'),
-						$elm$html$Html$Events$onClick($author$project$Main$Decrement)
+						$elm$html$Html$Attributes$class('modal-close is-large')
 					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('-')
-					]))
+				_List_Nil)
 			]));
 };
 var $elm$html$Html$footer = _VirtualDom_node('footer');
@@ -5266,9 +5458,64 @@ var $author$project$Main$finale = A2(
 					$elm$html$Html$text('copyright 2022 - micaela romero and james manley')
 				]))
 		]));
-var $elm$html$Html$a = _VirtualDom_node('a');
+var $author$project$Main$art = A4(
+	$author$project$Main$Chapter,
+	'art',
+	'',
+	'',
+	A2($elm$html$Html$div, _List_Nil, _List_Nil));
+var $author$project$Main$hypno = A4(
+	$author$project$Main$Chapter,
+	'clinical hypnotherapy',
+	'',
+	'',
+	A2($elm$html$Html$div, _List_Nil, _List_Nil));
 var $elm$html$Html$nav = _VirtualDom_node('nav');
-var $elm$html$Html$p = _VirtualDom_node('p');
+var $author$project$Main$navLevelItem = F3(
+	function (navClass, title, msg) {
+		return A2(
+			$elm$html$Html$p,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('level-item has-text-centered')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$a,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class(navClass),
+							$elm$html$Html$Events$onClick(msg)
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text(title)
+						]))
+				]));
+	});
+var $author$project$Main$navLevelChapterItem = function (chapter) {
+	return A3(
+		$author$project$Main$navLevelItem,
+		'link is-info',
+		chapter.title,
+		$author$project$Main$Open(chapter));
+};
+var $author$project$Main$navLevelTitleItem = function (title) {
+	return A3($author$project$Main$navLevelItem, 'title', title, $author$project$Main$Home);
+};
+var $author$project$Main$pilates = A4(
+	$author$project$Main$Chapter,
+	'pilates',
+	'',
+	'',
+	A2($elm$html$Html$div, _List_Nil, _List_Nil));
+var $author$project$Main$sound = A4(
+	$author$project$Main$Chapter,
+	'sound healing',
+	'',
+	'',
+	A2($elm$html$Html$div, _List_Nil, _List_Nil));
 var $author$project$Main$navLevel = A2(
 	$elm$html$Html$nav,
 	_List_fromArray(
@@ -5277,245 +5524,89 @@ var $author$project$Main$navLevel = A2(
 		]),
 	_List_fromArray(
 		[
-			A2(
-			$elm$html$Html$p,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('level-item has-text-centered')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$a,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('link is-info')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('about me')
-						]))
-				])),
-			A2(
-			$elm$html$Html$p,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('level-item has-text-centered ')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$a,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('link is-info')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('yoga')
-						]))
-				])),
-			A2(
-			$elm$html$Html$p,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('level-item has-text-centered')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$a,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('link is-info')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('pilates')
-						]))
-				])),
-			A2(
-			$elm$html$Html$p,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('level-item has-text-centered')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$a,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('title')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('Micki Yoga')
-						]))
-				])),
-			A2(
-			$elm$html$Html$p,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('level-item has-text-centered')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$a,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('link is-info')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('clinical hypnotherapy')
-						]))
-				])),
-			A2(
-			$elm$html$Html$p,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('level-item has-text-centered')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$a,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('link is-info')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('sound healing')
-						]))
-				])),
-			A2(
-			$elm$html$Html$p,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('level-item has-text-centered')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$a,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('link is-info')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('art')
-						]))
-				]))
+			$author$project$Main$navLevelChapterItem($author$project$Main$about),
+			$author$project$Main$navLevelChapterItem($author$project$Main$yoga),
+			$author$project$Main$navLevelChapterItem($author$project$Main$pilates),
+			$author$project$Main$navLevelTitleItem('Micki Yoga'),
+			$author$project$Main$navLevelChapterItem($author$project$Main$hypno),
+			$author$project$Main$navLevelChapterItem($author$project$Main$sound),
+			$author$project$Main$navLevelChapterItem($author$project$Main$art)
 		]));
-var $author$project$Main$navTiles = function () {
+var $author$project$Main$navTile = function (chapter) {
 	var tileClass = $elm$html$Html$Attributes$class('tile is-child box is-flex is-align-items-center is-justify-content-center');
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				$elm$html$Html$Attributes$class('tile is-ancestor')
+				tileClass,
+				$elm$html$Html$Events$onClick(
+				$author$project$Main$Open(chapter))
 			]),
 		_List_fromArray(
 			[
-				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('tile is-parent is-vertical is-4')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$div,
-						_List_fromArray(
-							[tileClass]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('about me')
-							])),
-						A2(
-						$elm$html$Html$div,
-						_List_fromArray(
-							[tileClass]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('sound healing')
-							]))
-					])),
-				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('tile is-parent is-vertical')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$div,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('tile is-parent')
-							]),
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[tileClass]),
-								_List_fromArray(
-									[
-										$elm$html$Html$text('yoga')
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('tile is-parent is-vertical')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$div,
-										_List_fromArray(
-											[tileClass]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text('pilates')
-											])),
-										A2(
-										$elm$html$Html$div,
-										_List_fromArray(
-											[tileClass]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text('art')
-											]))
-									]))
-							])),
-						A2(
-						$elm$html$Html$div,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('tile is-parent is-vertical')
-							]),
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[tileClass]),
-								_List_fromArray(
-									[
-										$elm$html$Html$text('clinical hypnotherapy')
-									]))
-							]))
-					]))
+				$elm$html$Html$text(chapter.title)
 			]));
-}();
+};
+var $author$project$Main$navTiles = A2(
+	$elm$html$Html$div,
+	_List_fromArray(
+		[
+			$elm$html$Html$Attributes$class('tile is-ancestor')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('tile is-parent is-vertical is-4')
+				]),
+			_List_fromArray(
+				[
+					$author$project$Main$navTile($author$project$Main$about),
+					$author$project$Main$navTile($author$project$Main$sound)
+				])),
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('tile is-parent is-vertical')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('tile is-parent')
+						]),
+					_List_fromArray(
+						[
+							$author$project$Main$navTile($author$project$Main$yoga),
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('tile is-parent is-vertical')
+								]),
+							_List_fromArray(
+								[
+									$author$project$Main$navTile($author$project$Main$pilates),
+									$author$project$Main$navTile($author$project$Main$art)
+								]))
+						])),
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('tile is-parent is-vertical')
+						]),
+					_List_fromArray(
+						[
+							$author$project$Main$navTile($author$project$Main$hypno)
+						]))
+				]))
+		]));
 var $elm$html$Html$section = _VirtualDom_node('section');
 var $author$project$Main$view = function (model) {
 	return A2(
@@ -5539,11 +5630,9 @@ var $author$project$Main$view = function (model) {
 								$elm$html$Html$Attributes$class('container is-max-desktop')
 							]),
 						_List_fromArray(
-							[
-								$author$project$Main$navTiles,
-								$author$project$Main$buttonExample(model)
-							]))
+							[$author$project$Main$navTiles]))
 					])),
+				$author$project$Main$chapterDetail(model),
 				$author$project$Main$finale
 			]));
 };

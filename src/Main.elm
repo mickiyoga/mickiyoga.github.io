@@ -1,17 +1,11 @@
--- Borrowing the basic demo, with modifications, to get Elm working with Bulma:
+-- Simple Elm app with Bulma styling, to keep things easy to adapt and maintain
 
 
 module Main exposing (..)
 
--- Press buttons to increment and decrement a counter.
---
--- Read how it works:
---   https://guide.elm-lang.org/architecture/buttons.html
---
-
 import Browser
-import Html exposing (Html, a, button, div, footer, img, nav, p, section, text)
-import Html.Attributes exposing (attribute, class, height, href, src, width)
+import Html exposing (Html, a, button, div, footer, li, nav, p, section, text, ul)
+import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 
 
@@ -19,6 +13,7 @@ import Html.Events exposing (onClick)
 -- MAIN
 
 
+main : Program () Model Msg
 main =
     Browser.sandbox { init = init, update = update, view = view }
 
@@ -27,13 +22,79 @@ main =
 -- MODEL
 
 
+type alias Chapter msg =
+    { title : String
+    , colour : String
+    , image : String
+    , description : Html msg
+    }
+
+
+about =
+    Chapter
+        "about me"
+        ""
+        ""
+    <|
+        div [ class "content" ]
+            [ p [] [ text "Yoga guide and personal trainer, Micaela 'Micki' Romero." ]
+            , p [] [ text "I am based in South East Queensland." ]
+            , p [] [ text "My style and own view of teaching asanas (yoga poses) can be described as" ]
+            , ul []
+                [ li [] [ text "martial arts meets yogi" ]
+                , li [] [ text "healing, gentle ray of sunshine" ]
+                , li [] [ text "challenging with a focus on alignment & breath" ]
+                , li [] [ text "mellow and wise" ]
+                , li [] [ text "soulful and sweaty" ]
+                , li [] [ text "focused and grounding" ]
+                , li [] [ text "playful flows" ]
+                , li [] [ text "strong and calming" ]
+                , li [] [ text "peaceful moving meditation" ]
+                , li [] [ text "powerful, deep and nourishing" ]
+                , li [] [ text "enthusiastic, playful and energetic" ]
+                , li [] [ text "knowledgeable" ]
+                , li [] [ text "calm & centred with a new perception" ]
+                ]
+            , p []
+                [ text "Try various ranges from my cool-as-a-cucumber   "
+                , a [ onClick (Open yoga) ] [ text "yoga" ]
+                , text ", cardio yoga, or powerhouse personal training"
+                ]
+            ]
+
+
+yoga =
+    Chapter "yoga" "yellow" "" <|
+        div [] []
+
+
+pilates =
+    Chapter "pilates" "" "" <|
+        div [] []
+
+
+hypno =
+    Chapter "clinical hypnotherapy" "" "" <|
+        div [] []
+
+
+sound =
+    Chapter "sound healing" "" "" <|
+        div [] []
+
+
+art =
+    Chapter "art" "" "" <|
+        div [] []
+
+
 type alias Model =
-    Int
+    Maybe (Chapter Msg)
 
 
 init : Model
 init =
-    0
+    Nothing
 
 
 
@@ -41,18 +102,22 @@ init =
 
 
 type Msg
-    = Increment
-    | Decrement
+    = Home
+    | Open (Chapter Msg)
+    | Close (Chapter Msg)
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        Increment ->
-            model + 1
+        Home ->
+            Nothing
 
-        Decrement ->
-            model - 1
+        Close _ ->
+            Nothing
+
+        Open chapter ->
+            Just chapter
 
 
 
@@ -66,73 +131,94 @@ view model =
         , section [ class "section" ]
             [ div [ class "container is-max-desktop" ]
                 [ navTiles
-                , buttonExample model
                 ]
             ]
+        , chapterDetail model
         , finale
         ]
 
 
+navLevelItem : String -> String -> Msg -> Html Msg
+navLevelItem navClass title msg =
+    p [ class "level-item has-text-centered" ]
+        [ a [ class navClass, onClick msg ] [ text title ] ]
 
--- Could pass in structured menu data - names, link action, etc.
+
+navLevelChapterItem : Chapter Msg -> Html Msg
+navLevelChapterItem chapter =
+    navLevelItem "link is-info" chapter.title (Open chapter)
+
+
+navLevelTitleItem : String -> Html Msg
+navLevelTitleItem title =
+    navLevelItem "title" title Home
 
 
 navLevel : Html Msg
 navLevel =
     nav [ class "level" ]
-        [ p [ class "level-item has-text-centered" ]
-            [ a [ class "link is-info" ] [ text "about me" ] ]
-        , p [ class "level-item has-text-centered " ]
-            [ a [ class "link is-info" ] [ text "yoga" ] ]
-        , p [ class "level-item has-text-centered" ]
-            [ a [ class "link is-info" ] [ text "pilates" ] ]
-        , p [ class "level-item has-text-centered" ]
-            [ a [ class "title" ] [ text "Micki Yoga" ] ]
-        , p [ class "level-item has-text-centered" ]
-            [ a [ class "link is-info" ] [ text "clinical hypnotherapy" ] ]
-        , p [ class "level-item has-text-centered" ]
-            [ a [ class "link is-info" ] [ text "sound healing" ] ]
-        , p [ class "level-item has-text-centered" ]
-            [ a [ class "link is-info" ] [ text "art" ] ]
+        [ navLevelChapterItem about
+        , navLevelChapterItem yoga
+        , navLevelChapterItem pilates
+        , navLevelTitleItem "Micki Yoga"
+        , navLevelChapterItem hypno
+        , navLevelChapterItem sound
+        , navLevelChapterItem art
         ]
 
 
-navTiles : Html Msg
-navTiles =
+navTile : Chapter Msg -> Html Msg
+navTile chapter =
     let
         tileClass =
             class "tile is-child box is-flex is-align-items-center is-justify-content-center"
     in
+    div [ tileClass, onClick (Open chapter) ] [ text chapter.title ]
+
+
+navTiles : Html Msg
+navTiles =
     div [ class "tile is-ancestor" ]
         [ div [ class "tile is-parent is-vertical is-4" ]
-            [ div [ tileClass ] [ text "about me" ]
-            , div [ tileClass ] [ text "sound healing" ]
+            [ navTile about
+            , navTile sound
             ]
         , div [ class "tile is-parent is-vertical" ]
             [ div [ class "tile is-parent" ]
-                [ div [ tileClass ] [ text "yoga" ]
+                [ navTile yoga
                 , div [ class "tile is-parent is-vertical" ]
-                    [ div [ tileClass ] [ text "pilates" ]
-                    , div [ tileClass ] [ text "art" ]
+                    [ navTile pilates
+                    , navTile art
                     ]
                 ]
             , div [ class "tile is-parent is-vertical" ]
-                [ div [ tileClass ] [ text "clinical hypnotherapy" ] ]
+                [ navTile hypno ]
             ]
         ]
 
 
+chapterDetail : Model -> Html Msg
+chapterDetail model =
+    let
+        modalClass =
+            case model of
+                Nothing ->
+                    "modal"
 
--- Standard button example, to test actions
-
-
-buttonExample : Model -> Html Msg
-buttonExample model =
+                _ ->
+                    "modal is-active"
+    in
     div
-        []
-        [ button [ class "button", class "is-primary", onClick Increment ] [ text "+" ]
-        , div [] [ text (String.fromInt model) ]
-        , button [ class "button", class "is-danger", onClick Decrement ] [ text "-" ]
+        [ class
+            modalClass
+        ]
+        [ div [ class "modal-background", onClick Home ] []
+        , div [ class "modal-content" ]
+            [ div [ class "box" ]
+                [ (Maybe.withDefault about model).description
+                ]
+            ]
+        , button [ class "modal-close is-large" ] []
         ]
 
 
