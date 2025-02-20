@@ -1,0 +1,33 @@
+media:
+  input: src/lib/assets
+  output: $lib/assets
+content:
+  - name: posts
+    label: Blog Posts
+    type: collection
+    path: src/routes/blog/posts
+    subfolders: false
+    filename: "{date}.md"
+    view:
+      fields: [title, date, author]
+      primary: title
+      sort: [date, author]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true }
+      - name: author
+        label: Author
+        type: select
+        options:
+          values: [James Manley, Your Client]
+        required: true
+      - { name: body, label: Body, type: rich-text, required: true }
+  - name: contact
+    label: Contact
+    type: file
+    path: src/routes/contact/index.md
+    fields:
+      - { name: body, label: Body, type: rich-text, required: true }
