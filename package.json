@@ -1,0 +1,12 @@
+{
+	"name": "mickiyoga.github.io",
+	"version": "1.0.0",
+	"description": "## Official site for Micki Yoga",
+	"main": "index.js",
+	"scripts": {
+		"build": "echo No build step yet",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC"
+}
