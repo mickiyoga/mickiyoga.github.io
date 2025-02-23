@@ -11,31 +11,10 @@
             .block
               h1.title.is-size-1.has-text-white Micki Yoga
               h2.subtitle.has-text-white Micaela 'Micki' Romero
-            //- .block
-            //-   h2
-            //-     a.has-text-white(href="#longevity")
-            //-       | Mental Independence and Longevity Sherpa
-            //-   h2
-            //-     a.has-text-white(href="#performance")
-            //-       | Executive Life and Performance Coach
-            //- .block
-            //-   ion-list  
-            //-     ion-item.has-text-white
-            //-       ion-icon(name="link-outline" item-start)
-            //-       a.has-text-white(href="#longevity")
-            //-         | Mental Independence and Longevity Sherpa
-            //- .block
-            //-   ul.fancy-list.has-text-white
-            //-     li
-            //-       a.has-text-white(href="/longevity")
-            //-         | Mental Independence and Longevity Sherpa
-            //-     li
-            //-       a.has-text-white(href="/performance")
-            //-         | Executive Life and Performance Coach
             .block
               a.block-link(href="/longevity")
                 | Mental Independence and Longevity Sherpa
-              a.block-link(href="/performance")
+              a.block-link(href="#")
                 | Executive Life and Performance Coach
 
   section#contact.section
@@ -62,14 +41,14 @@
             .control.has-icons-left
               input#email-name.input(type="text" name="name")
               span.icon.is-small.is-left
-                ion-icon.text-soft(name="person-circle-outline")
+                i.far.fa-circle-user
           .field
             label.label(for="email-address")
               | Email
             .control.has-icons-left
               input#email-address.input(type="email" name="_replyto")
               span.icon.is-small.is-left
-                ion-icon.text-soft(name="mail-outline")
+                i.far.fa-envelope
           .field
             label.label(for="email-body")
               | Enquiry

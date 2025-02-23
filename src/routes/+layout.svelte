@@ -96,17 +96,12 @@
 
       .navbar-end
         .navbar-item
-          a(href="https://www.facebook.com/Micki.yogaFitness")
-            span.icon.is-large.has-text-link
-              ion-icon(name="logo-facebook" size="large")
-        .navbar-item
-          a(href="https://www.instagram.com/mickiyoga_dailydose")
-            span.icon.is-large.has-text-link
-              ion-icon(name="logo-instagram" size="large")
-        .navbar-item
-          a(href="/#contact")
-            span.icon.is-large.has-text-link
-              ion-icon(name="mail-outline" size="large")
+          a.icon.is-medium(href="https://www.facebook.com/Micki.yogaFitness")
+            i.fab.fa-facebook.fa-xl
+          a.icon.is-medium(href="https://www.instagram.com/mickiyoga_dailydose")
+            i.fab.fa-instagram.fa-xl
+          a.icon.is-medium(href="/#contact")
+            i.far.fa-message.fa-xl
 
   //- Page transition effect
   +key("data.currentRoute")
@@ -140,6 +135,7 @@
 	@import url('https://fonts.googleapis.com/css2?family=Aboreto&display=swap');
 
 	@import 'https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css';
+  @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css";
 
 	:root {
 		/* As per https://bulma.io/documentation/helpers/color-helpers/ */
