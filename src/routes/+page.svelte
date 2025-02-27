@@ -31,7 +31,7 @@
           | info@micki.yoga
         |
         | for enquiries
-  section.section.has-background-primary
+  section.section.has-background-storm
     .container.is-max-desktop
       .box
         //- Email redirection service for static sites, courtesy of https://formspree.io/
@@ -83,11 +83,11 @@
     backdrop-filter: blur(0.5ex);
   }
 
-  .fancy-list {
+  /* .fancy-list {
     padding-left: 2ex;
     list-style-type: circle;
     list-style-position: outside;
-  }
+  } */
 
   .block-link {
     display: block;
@@ -99,6 +99,11 @@
 
   .block-link:hover {
     color: var(--bulma-link);
+  }
+
+  .has-background-storm {
+    background-image: url("$lib/assets/abstract/storm.jpg");
+    background-size: cover;
   }
 
 </style>

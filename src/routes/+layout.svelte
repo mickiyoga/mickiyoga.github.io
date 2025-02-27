@@ -79,7 +79,7 @@
         a.navbar-item(href="/about") About Me
         a.navbar-item(href="/longevity") Longevity
         a.navbar-item Executive Performance
-        a.navbar-item Transformation Coach
+        a.navbar-item(href="/transformation") Transformation Coach
         .navbar-item.has-dropdown.is-hoverable
           a.navbar-link More
           .navbar-dropdown
@@ -90,7 +90,7 @@
             a.navbar-item(href="/pilates") Pilates
             a.navbar-item(href="/pt") Personal Training
             a.navbar-item Spin Cycling
-            a.navbar-item Myobility
+            a.navbar-item(href="/myobility") Myobility
             hr.navbar-divider
             a.navbar-item Art
 
