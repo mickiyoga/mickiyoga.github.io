@@ -3,10 +3,13 @@
 </script>
 
 <template lang="pug">
-  header.mountain.is-flex
+  enhanced:img.backdrop(src="/src/lib/assets/dancer_pose.jpg")
+
+  header.is-flex
     .columns.is-flex-grow-1
-      .column.is-one-third.is-flex
-        .tinted.is-flex.is-flex-grow-1
+      .column.is-three-fifths.p-0
+      .column.is-two-fifths.is-flex.has-text-right
+        .tinted.is-flex.is-flex-grow-1.is-justify-content-flex-end
           .section.is-flex.is-flex-direction-column.is-justify-content-space-between
             .block
               h1.title.is-size-1.has-text-white Micki Yoga
@@ -17,7 +20,7 @@
               a.block-link(href="#")
                 | Executive Life and Performance Coach
 
-  section#contact.section
+  section#contact.section.has-background-white
     .container.is-max-desktop.has-text-centered
       h1.title
         | Contact
@@ -63,28 +66,16 @@
 </template>
 
 <style>
+  .backdrop {
+    position: fixed;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: 30% 50%;
+    z-index: -999;
+  }
+
   header {
-    min-height: calc(100vh - var(--bulma-navbar-height)); 
-  }
-
-	/* .font-branded {
-		font-family: var(--custom-font-branded);
-	} */
-
-  .mountain {
-    background-image: url('$lib/assets/mountain.jpg');
-    background-attachment: fixed;
-    background-position-x: center;
-    background-position-y: 50%;
-    background-size: cover;
-  }
-
-  /* Bulma's mobile break point (columns stacked) */
-  @media only screen and (max-width: 769px) {
-    .mountain {
-      background-size: 120vh;
-      background-position-y: top;
-    }
+    min-height: calc(100vh - var(--bulma-navbar-height));
   }
 
   .tinted {
@@ -96,7 +87,6 @@
     padding-left: 2ex;
     list-style-type: circle;
     list-style-position: outside;
-    /* list-style-image: url('$lib/assets/logo-small-white.png'); */
   }
 
   .block-link {

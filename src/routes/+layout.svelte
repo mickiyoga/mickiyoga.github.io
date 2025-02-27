@@ -108,7 +108,7 @@
     main.full-height(in:fade!="{{ duration: 150, delay: 150 }}", out:fade!="{{ duration: 150 }}")
       | {@render children()}
 
-  .footer 
+  .footer
     .container.has-text-centered
       img(src!="{logoBlack}" alt="Micki Yoga logo")
       .is-size-7 © Micaela Romero {getCopyrightYear()}
