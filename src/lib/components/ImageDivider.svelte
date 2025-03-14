@@ -1,38 +1,28 @@
 <script lang="ts">
 	let props = $props();
 
-	function getImage() {
-		return props.image ?? 'ocean';
+	function getEnhancedImage() {
+    const images = import.meta.glob("/src/lib/assets/abstract/*.jpg",
+      {
+        eager: true,
+        query: { enhanced: true },
+        import: "default"
+      }
+    );
+
+    return images[`/src/lib/assets/abstract/${props.image ?? "ocean"}.jpg`];
 	}
 </script>
 
 <template lang="pug">
-  .image-divider(class!="{getImage()}")
+  .image-divider
+    enhanced:img(src!="{getEnhancedImage()}" sizes="min(1em, 100vw)")
 </template>
 
 <style>
 	.image-divider {
 		height: 1em;
-		width: 100vw;
-	}
-
-	.agua {
-		background-image: url('$lib/assets/abstract/agua.jpg');
-	}
-
-	.ocean {
-		background-image: url('$lib/assets/abstract/ocean.jpg');
-	}
-
-	.rockpool {
-		background-image: url('$lib/assets/abstract/rockpool.jpg');
-	}
-
-	.spray {
-		background-image: url('$lib/assets/abstract/spray.jpg');
-	}
-
-	.storm {
-		background-image: url('$lib/assets/abstract/storm.jpg');
+		min-width: 100vw;
+		overflow: hidden;
 	}
 </style>
