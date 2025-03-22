@@ -1,5 +1,9 @@
 <script lang="ts">
+  import { type Client } from "./+page"
 
+  let { data } = $props();
+
+  const clients: Client[] = data.clients;
 </script>
 
 <template lang="pug">
@@ -20,6 +24,22 @@
               a.block-link(href="#")
                 | Executive Life and Performance Coach
 
+  section.section.has-background-white
+    .container.is-max-desktop.has-text-centered
+      h1.title
+        | Join my other happy clients
+
+  section.section.has-background-white
+    .is-flex.is-flex-wrap-wrap.is-justify-content-space-evenly.is-align-items-center
+      +each("clients as { url, logo }")
+        .cell.is-grow-0
+          a(href!="{url}")
+            figure.image.m-5.client-logo
+              enhanced:img(
+                src!="{logo}" 
+                sizes="(min-width:1920px) 256px, (min-width:1080px) 128px, (min-width:768px) 64px"
+              )
+
   section#contact.section.has-background-white
     .container.is-max-desktop.has-text-centered
       h1.title
@@ -31,6 +51,7 @@
           | info@micki.yoga
         |
         | for enquiries
+        
   section.section.has-background-storm
     .container.is-max-desktop
       .box
@@ -104,6 +125,10 @@
   .has-background-storm {
     background-image: url("$lib/assets/abstract/storm.jpg");
     background-size: cover;
+  }
+
+  .client-logo {
+    max-width: 30vw;
   }
 
 </style>
