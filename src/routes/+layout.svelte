@@ -77,22 +77,24 @@
     .navbar-menu(class:is-active!="{showMenu}")
       .navbar-start
         a.navbar-item(href="/about") About Me
+        a.navbar-item(href="/yin") Yin Yoga
         a.navbar-item(href="/longevity") Longevity
-        a.navbar-item Executive Performance
         a.navbar-item(href="/transformation") Transformation Coach
         .navbar-item.has-dropdown.is-hoverable
           a.navbar-link More
           .navbar-dropdown
             a.navbar-item(href="/yoga") Yoga
             a.navbar-item(href="/nlp") NLP & Hypnotherapy
-            a.navbar-item Sound Healing
+            //- a.navbar-item Sound Healing
             hr.navbar-divider
             a.navbar-item(href="/pilates") Pilates
             a.navbar-item(href="/pt") Personal Training
-            a.navbar-item Spin Cycling
+            //- TODO: Got certification info, add a blurb
+            //- a.navbar-item Spin Cycling
             a.navbar-item(href="/myobility") Myobility
-            hr.navbar-divider
-            a.navbar-item Art
+            //- TODO: Art and music sections to be added later
+            //- hr.navbar-divider
+            //- a.navbar-item Art
 
       .navbar-end
         .navbar-item

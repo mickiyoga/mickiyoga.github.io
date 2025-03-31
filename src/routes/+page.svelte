@@ -21,8 +21,8 @@
             .block
               a.block-link(href="/longevity")
                 | Mental Independence and Longevity Sherpa
-              a.block-link(href="#")
-                | Executive Life and Performance Coach
+              a.block-link(href="/yin")
+                | Yin Yoga: The Key to Deep Release and Longevity
 
   section.section.has-background-white
     .container.is-max-desktop.has-text-centered
