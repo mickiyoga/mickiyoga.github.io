@@ -4,6 +4,7 @@
   import logoBlack from "$lib/assets/logo-small-black.png";
   import { fade } from 'svelte/transition';
   import { page } from '$app/state';
+  import { browser } from '$app/environment';
 
   // Useful for showing a reminder for clients hitting the preview site
   const OFFICIAL_URL = "https://micki.yoga";
@@ -29,6 +30,21 @@
     window.location.href = OFFICIAL_URL;
   }
 
+  function setupCalendly() {
+    if (!browser) {
+      return;
+    }
+
+    (window.Calendly as any).initBadgeWidget({
+      url: "https://calendly.com/micaelacarmenromero/turning-house-hunters-into-homeowners",
+      text: "Book a session with me",
+      branding: false
+    });
+
+    document.querySelector(".calendly-badge-content")?.classList
+      .add("has-text-white", "has-background-link");
+  }
+
 	setContext('iconCtx', {
 		size: '20' // Global Ionicon size in pixels
 	});
@@ -45,17 +61,24 @@
 
     meta(charset="utf-8")
     meta(name="title" content="Micki Yoga")
-    meta(name="description" content="Micki Romero yoga and hypnotherapy.")
+    meta(name="description" content="Micki Romero Yoga.")
     meta(name="author" content="James Manley and Micaela Romero")
     meta(name="language" content="english")
     meta(name="viewport" content="width=device-width, initial-scale=1")
 
-    meta(property="og:title" content="Micki Romero yoga and hypnotherapy")
+    meta(property="og:title" content="Micki Romero Yoga")
     meta(property="og:type" content="website")
     meta(property="og:url" content!="{OFFICIAL_URL}")
     meta(property="og:image" content!="{OFFICIAL_URL}/media/logo.png")
     meta(property="og:image:alt" content="Micki Yoga Logo")
-    meta(property="og:description" content="Micki Romero yoga and hypnotherapy.")
+    meta(property="og:description" content="Micki Romero Yoga.")
+
+    script(
+      src="https://assets.calendly.com/assets/external/widget.js"
+      type="text/javascript"
+      async
+      onload!="{setupCalendly}"
+    )
 
   nav.navbar.is-fixed-top(role="navigation" aria-label="main navigation")
     .navbar-brand
@@ -139,6 +162,9 @@
 	@import 'https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css';
   @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css";
 
+  /* Calendly popup button styling */
+  @import url("https://assets.calendly.com/assets/external/widget.css");
+
 	:root {
 		/* As per https://bulma.io/documentation/helpers/color-helpers/ */
 		--bulma-family-secondary: 'Aboreto', serif;
@@ -160,5 +186,4 @@
 	.full-height {
 		min-height: calc(100vh - var(--bulma-navbar-height)); 
 	}
-
 </style>

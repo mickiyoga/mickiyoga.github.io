@@ -83,7 +83,6 @@
               button.button.is-link(type="submit" value="Send")
                 | Send
           input(type="hidden" name="_subject" value="Client enquiry from micki.yoga website!")
-
 </template>
 
 <style>
@@ -103,12 +102,6 @@
     background-image: linear-gradient(transparent, transparent, hsla(182, 59%, 11%, 0.5));
     backdrop-filter: blur(0.5ex);
   }
-
-  /* .fancy-list {
-    padding-left: 2ex;
-    list-style-type: circle;
-    list-style-position: outside;
-  } */
 
   .block-link {
     display: block;
