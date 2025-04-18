@@ -1,88 +1,118 @@
 <script lang="ts">
-  import { type Client } from "./+page"
+  import Section from "$lib/components/Section.svelte";
+  import { type Client } from "./+page";
+  import storm from "$lib/assets/abstract/storm.jpg";
 
   let { data } = $props();
 
   const clients: Client[] = data.clients;
 </script>
 
-<template lang="pug">
-  enhanced:img.backdrop(src="/src/lib/assets/dancer_pose.jpg")
+<template>
+  <enhanced:img class="backdrop" src="/src/lib/assets/dancer_pose.jpg" />
 
-  header.is-flex
-    .columns.is-flex-grow-1
-      .column.is-three-fifths.p-0
-      .column.is-two-fifths.is-flex.has-text-right
-        .tinted.is-flex.is-flex-grow-1.is-justify-content-flex-end
-          .section.is-flex.is-flex-direction-column.is-justify-content-space-between
-            .block
-              h1.title.is-size-1.has-text-white Micki Yoga
-              h2.subtitle.has-text-white Micaela 'Micki' Romero
-            .block
-              a.block-link(href="/longevity")
-                | Mental Independence and Longevity Sherpa
-              a.block-link(href="/yin")
-                | Yin Yoga: The Key to Deep Release and Longevity
+  <header class="is-flex">
+    <div class="columns is-flex-grow-1">
+      <div class="column is-three-fifths p-0"></div>
+      <div class="column is-two-fifths is-flex has-text-right">
+        <div class="tinted is-flex is-flex-grow-1 is-justify-content-flex-end">
+          <div class="section is-flex is-flex-direction-column is-justify-content-space-between">
+            <div class="block">
+              <h1 class="title is-size-1 has-text-white">Micki Yoga</h1>
+              <h2 class="subtitle has-text-white">Micaela 'Micki' Romero</h2>
+            </div>
+            <div class="block">
+              <a class="block-link" href="/longevity"> Mental Independence and Longevity Sherpa </a>
+              <a class="block-link mb-5" href="/yin">
+                Yin Yoga: The Key to Deep Release and Longevity
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  section.section.has-background-white
-    .container.is-max-desktop.has-text-centered
-      h1.title
-        | Join my other happy clients
+  <Section class="has-background-white">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title">Join my other happy clients</h1>
+    </div>
+  </Section>
 
-  section.section.has-background-white
-    .is-flex.is-flex-wrap-wrap.is-justify-content-space-evenly.is-align-items-center
-      +each("clients as { url, logo }")
-        .cell.is-grow-0
-          a(href!="{url}")
-            figure.image.m-5.client-logo
-              enhanced:img(
-                src!="{logo}" 
+  <Section class="has-background-white">
+    <div class="is-flex is-flex-wrap-wrap is-justify-content-space-evenly is-align-items-center">
+      {#each clients as { url, logo }}
+        <div class="cell is-grow-0">
+          <a href={url} aria-label="Home">
+            <figure class="image m-5 client-logo">
+              <enhanced:img
+                src={logo}
                 sizes="(min-width:1920px) 256px, (min-width:1080px) 128px, (min-width:768px) 64px"
-              )
+              />
+            </figure>
+          </a>
+        </div>
+      {/each}
+    </div>
+  </Section>
 
-  section#contact.section.has-background-white
-    .container.is-max-desktop.has-text-centered
-      h1.title
-        | Contact
-      h2.subtitle
-        | Please email 
-        |
-        a(href="mailto:info@micki.yoga") 
-          | info@micki.yoga
-        |
-        | for enquiries
-        
-  section.section.has-background-storm
-    .container.is-max-desktop
-      .box
-        //- Email redirection service for static sites, courtesy of https://formspree.io/
-        p.has-text-centered
-          | Or contact me directly
-        form#email-enquiry(action="https://formspree.io/info@micki.yoga" method="POST")
-          .field
-            label.label(for="email-name")
-              | Name
-            .control.has-icons-left
-              input#email-name.input(type="text" name="name")
-              span.icon.is-small.is-left
-                i.far.fa-circle-user
-          .field
-            label.label(for="email-address")
-              | Email
-            .control.has-icons-left
-              input#email-address.input(type="email" name="_replyto")
-              span.icon.is-small.is-left
-                i.far.fa-envelope
-          .field
-            label.label(for="email-body")
-              | Enquiry
-            .control
-              textarea#email-body.textarea(rows="3" name="enquiry" placeholder="Hi Micki...")
-          .field
-            .control.has-text-centered
-              button.button.is-link(type="submit" value="Send")
-                | Send
-          input(type="hidden" name="_subject" value="Client enquiry from micki.yoga website!")
+  <Section id="contact" class="has-background-white">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title">Contact</h1>
+      <h2 class="subtitle">
+        Please email
+        <a href="mailto:info@micki.yoga"> info@micki.yoga </a>
+        for enquiries
+      </h2>
+    </div>
+  </Section>
+
+  <Section backgroundImage={storm}>
+    <div class="container is-max-desktop">
+      <div class="box">
+        <!-- Email redirection service for static sites, courtesy of https://formspree.io/ -->
+        <p class="has-text-centered">Or contact me directly</p>
+        <form id="email-enquiry" action="https://formspree.io/info@micki.yoga" method="POST">
+          <div class="field">
+            <label class="label" for="email-name"> Name </label>
+            <div class="control has-icons-left">
+              <input id="email-name" class="input" type="text" name="name" />
+              <span class="icon is-small is-left">
+                <i class="far fa-circle-user"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="email-address"> Email </label>
+            <div class="control has-icons-left">
+              <input id="email-address" class="input" type="email" name="_replyto" />
+              <span class="icon is-small is-left">
+                <i class="far fa-envelope"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="email-body"> Enquiry </label>
+            <div class="control">
+              <textarea
+                id="email-body"
+                class="textarea"
+                rows="3"
+                name="enquiry"
+                placeholder="Hi Micki..."
+              ></textarea>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control has-text-centered">
+              <button class="button is-link" type="submit" value="Send"> Send </button>
+            </div>
+          </div>
+          <input type="hidden" name="_subject" value="Client enquiry from micki.yoga website!" />
+        </form>
+      </div>
+    </div>
+  </Section>
 </template>
 
 <style>
@@ -115,13 +145,7 @@
     color: var(--bulma-link);
   }
 
-  .has-background-storm {
-    background-image: url("$lib/assets/abstract/storm.jpg");
-    background-size: cover;
-  }
-
   .client-logo {
     max-width: 30vw;
   }
-
 </style>

@@ -1,9 +1,9 @@
 export const prerender = false;
 
 export interface Client {
-  name: string,
-  logo: string,
-  url: string
+  name: string;
+  logo: string;
+  url: string;
 }
 
 export function load() {
@@ -57,13 +57,13 @@ export function load() {
       name: "Crunch",
       logo: "/src/lib/assets/clients_256px/crunch.png",
       url: "https://www.crunch.com/"
-    },
-  ].map(client => ({
+    }
+  ].map((client) => ({
     ...client,
     logo: logos[client.logo]
   }));
 
   return {
     clients
-  }
+  };
 }
