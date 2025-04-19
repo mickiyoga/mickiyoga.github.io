@@ -3,6 +3,7 @@
   import Section from "./Section.svelte";
   import Hero from "./Hero.svelte";
   import ImageDivider from "./ImageDivider.svelte";
+  import type { ClassValue } from "svelte/elements";
 
   interface Props {
     children: Snippet;
@@ -10,27 +11,28 @@
     subTitle?: string;
     subSnippet?: Snippet;
     divider?: string;
+    class?: ClassValue;
   }
 
-  const { children, title, subTitle: subtitle, subSnippet, divider }: Props = $props();
+  const props: Props = $props();
 </script>
 
 <template>
   <Hero>
     <h1 class="title">
-      {title}
+      {props.title}
     </h1>
     <h2 class="subtitle">
-      {subtitle}
-      {@render subSnippet?.()}
+      {props.subTitle ?? ""}
+      {@render props.subSnippet?.()}
     </h2>
   </Hero>
 
-  <ImageDivider image={divider} />
+  <ImageDivider image={props.divider} />
 
-  <Section>
+  <Section class={props.class}>
     <article class="container is-max-desktop content markdown-columns">
-      {@render children()}
+      {@render props.children()}
     </article>
   </Section>
 </template>
