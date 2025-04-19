@@ -8,9 +8,8 @@
   interface Props {
     children: Snippet;
     title: string;
-    subTitle?: string;
-    subSnippet?: Snippet;
-    divider?: string;
+    subtitles?: string[];
+    theme?: string;
     class?: ClassValue;
   }
 
@@ -22,13 +21,18 @@
     <h1 class="title">
       {props.title}
     </h1>
-    <h2 class="subtitle">
-      {props.subTitle ?? ""}
-      {@render props.subSnippet?.()}
-    </h2>
+    {#if props.subtitles}
+      <h2 class="subtitle">
+        <ul>
+          {#each props.subtitles as sub}
+            <li>{sub}</li>
+          {/each}
+        </ul>
+      </h2>
+    {/if}
   </Hero>
 
-  <ImageDivider image={props.divider} />
+  <ImageDivider image={props.theme} />
 
   <Section class={props.class}>
     <article class="container is-max-desktop content markdown-columns">
