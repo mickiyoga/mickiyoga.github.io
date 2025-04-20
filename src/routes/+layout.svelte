@@ -3,12 +3,13 @@
   import logoBlue from "$lib/assets/logo-small-blue.png";
   import logoBlack from "$lib/assets/logo-small-black.png";
   import { fade } from "svelte/transition";
-  import { browser } from "$app/environment";
+  import type { Action } from "svelte/action";
 
   // Useful for showing a reminder for clients hitting the preview site
   const OFFICIAL_URL = "https://micki.yoga";
 
   let { children, data } = $props();
+  let navbar: HTMLElement;
 
   let showMenu = $state<boolean>(false);
   let showPreviewModal = $state<boolean>(false);
@@ -29,21 +30,33 @@
     window.location.href = OFFICIAL_URL;
   }
 
-  function setupCalendly() {
-    if (!browser) {
-      return;
-    }
+  // function setupCalendly() {
+  //   if (!browser) {
+  //     return;
+  //   }
 
-    (window.Calendly as unknown).initBadgeWidget({
-      url: "https://calendly.com/micaelacarmenromero/turning-house-hunters-into-homeowners",
-      text: "Book a session with me",
-      branding: false
+  //   (window.Calendly as unknown).initBadgeWidget({
+  //     url: "https://calendly.com/micaelacarmenromero/turning-house-hunters-into-homeowners",
+  //     text: "Book a session with me",
+  //     branding: false
+  //   });
+
+  //   document
+  //     .querySelector(".calendly-badge-content")
+  //     ?.classList.add("has-text-white", "has-background-link");
+  // }
+
+  const showOnScroll: Action = (node) => {
+    const hiddenTop = `${-(node.offsetHeight + navbar.offsetHeight)}px`;
+    const visibleTop = `${navbar.offsetHeight}px`;
+    node.style.opacity = "0";
+    node.style.top = hiddenTop;
+    addEventListener("scroll", () => {
+      const showBanner = window.scrollY > 0;
+      node.style.opacity = showBanner ? "1" : "0";
+      node.style.top = showBanner ? visibleTop : "0";
     });
-
-    document
-      .querySelector(".calendly-badge-content")
-      ?.classList.add("has-text-white", "has-background-link");
-  }
+  };
 
   setContext("iconCtx", {
     size: "20" // Global Ionicon size in pixels
@@ -73,16 +86,16 @@
   <meta property="og:image:alt" content="Micki Yoga Logo" />
   <meta property="og:description" content="Micki Romero Yoga." />
 
-  <script
+  <!-- <script
     src="https://assets.calendly.com/assets/external/widget.js"
     type="text/javascript"
     async
     onload={setupCalendly}
-  ></script>
+  ></script> -->
 </svelte:head>
 
 <template>
-  <nav class="navbar is-fixed-top" aria-label="main navigation">
+  <nav class="navbar is-fixed-top" aria-label="main navigation" bind:this={navbar}>
     <div class="navbar-brand">
       <a class="navbar-item" href="/" aria-label="Home">
         <img src={logoBlue} alt="Home" />
@@ -149,6 +162,17 @@
     </div>
   </nav>
 
+  <!-- Show-on-scroll booking banner -->
+  <section
+    id="banner"
+    class="block pt-1 pb-6 has-background-white has-text-centered is-italic"
+    use:showOnScroll
+  >
+    <!-- Booking link -->
+    Schedule a
+    <a href="/#booking">confidential session</a> for longevity strategies and mental health independence!
+  </section>
+
   <!-- Page transition effect -->
   {#key data.currentRoute}
     <main class="full-height" in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150 }}>
@@ -194,7 +218,7 @@
   @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css";
 
   /* Calendly popup button styling */
-  @import url("https://assets.calendly.com/assets/external/widget.css");
+  /* @import url("https://assets.calendly.com/assets/external/widget.css"); */
 
   :root {
     /* As per https://bulma.io/documentation/helpers/color-helpers/ */
@@ -216,6 +240,14 @@
 
   .full-height {
     min-height: calc(100vh - var(--bulma-navbar-height));
+  }
+
+  #banner {
+    width: 100%;
+    opacity: 0;
+    position: fixed;
+    transition-duration: 1s;
+    z-index: 1;
   }
 
   /* TODO: Will be used for content from CMS - so add this */

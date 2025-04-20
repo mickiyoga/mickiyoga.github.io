@@ -58,21 +58,30 @@
 
   <Section id="contact" class="has-background-white">
     <div class="container is-max-desktop has-text-centered">
-      <h1 class="title">Contact</h1>
+      <!-- <h1 class="title">Contact</h1> -->
       <h2 class="subtitle">
-        Please email
-        <a href="mailto:info@micki.yoga"> info@micki.yoga </a>
-        for enquiries
+        You can email me at
+        <a href="mailto:info@micki.yoga">info@micki.yoga</a>
       </h2>
     </div>
   </Section>
 
   <Section backgroundImage={storm}>
     <div class="container is-max-desktop">
-      <div class="box">
+      <div id="booking">
+        <script
+          type="text/javascript"
+          async
+          src="https://static.zcal.co/embed/v1/embed.js"
+        ></script>
+        <div class="zcal-inline-widget">
+          <a href="https://zcal.co/i/Cr77ujp5">Book a session - Schedule a meeting</a>
+        </div>
+      </div>
+      <div id="email-enquiry" class="box">
         <!-- Email redirection service for static sites, courtesy of https://formspree.io/ -->
-        <p class="has-text-centered">Or contact me directly</p>
-        <form id="email-enquiry" action="https://formspree.io/info@micki.yoga" method="POST">
+        <h2 class="has-text-centered">Or send a quick enquiry</h2>
+        <form action="https://formspree.io/info@micki.yoga" method="POST">
           <div class="field">
             <label class="label" for="email-name"> Name </label>
             <div class="control has-icons-left">
