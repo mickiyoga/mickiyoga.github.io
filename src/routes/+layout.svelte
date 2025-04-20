@@ -112,7 +112,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#top"> More </a>
           <div class="navbar-dropdown">
-            <a class="navbar-item" href="/yoga"> Yoga </a>
+            <a class="navbar-item" href="/yoga"> Yoga for Everyone</a>
             <a class="navbar-item" href="/nlp"> NLP & Hypnotherapy </a>
             <!-- <a class="navbar-item" href="/sound-healing">Sound Healing</a> -->
             <hr class="navbar-divider" />
