@@ -21,4 +21,3 @@ neuro-linguistic programming (NLP) and hypnotherapy services for the treatment o
 - Confidence
 - Eating disorders
 - and more...
-
