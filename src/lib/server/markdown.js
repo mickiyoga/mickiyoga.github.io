@@ -19,7 +19,7 @@ function enhanceHtml() {
 
     visit(tree, { tagName: "blockquote" }, (blockquote) => {
       blockquote.properties.class =
-        "box has-background-primary has-text-white has-text-weight-semibold";
+        "box has-background-info has-text-white has-text-weight-semibold";
       blockquote.tagName = "div";
     });
 

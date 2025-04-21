@@ -1,7 +1,7 @@
 <script lang="ts">
   import { setContext, onMount } from "svelte";
-  import logoBlue from "$lib/assets/logo-small-blue.png";
-  import logoBlack from "$lib/assets/logo-small-black.png";
+  import logoBlue from "$lib/assets/logo-organic-blue-64.png";
+  import logoGrey from "$lib/assets/logo-organic-grey-32.png";
   import { fade } from "svelte/transition";
   import type { Action } from "svelte/action";
 
@@ -141,20 +141,20 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <a
-            class="icon is-medium"
+            class="icon is-medium has-text-primary"
             href="https://www.facebook.com/Micki.yogaFitness"
             aria-label="Facebook"
           >
             <i class="fab fa-xl fa-facebook"></i>
           </a>
           <a
-            class="icon is-medium"
+            class="icon is-medium has-text-primary"
             href="https://www.instagram.com/mickiyoga_dailydose"
             aria-label="Instagram"
           >
             <i class="fab fa-xl fa-instagram"></i>
           </a>
-          <a class="icon is-medium" href="/#contact" aria-label="Contact">
+          <a class="icon is-medium has-text-primary" href="/#contact" aria-label="Contact">
             <i class="fa fa-xl fa-message"></i>
           </a>
         </div>
@@ -165,7 +165,7 @@
   <!-- Show-on-scroll booking banner -->
   <section
     id="banner"
-    class="block pt-1 pb-6 has-background-white has-text-centered is-italic"
+    class="block pt-1 pb-4 has-background-white has-text-centered is-italic"
     use:showOnScroll
   >
     <!-- Booking link -->
@@ -182,7 +182,7 @@
 
   <footer class="footer">
     <div class="container has-text-centered">
-      <img src={logoBlack} alt="Micki Yoga logo" />
+      <img src={logoGrey} alt="Micki Yoga logo" />
       <div class="is-size-7">
         © Micaela Romero {getCopyrightYear()}
       </div>
@@ -220,6 +220,9 @@
   /* Calendly popup button styling */
   /* @import url("https://assets.calendly.com/assets/external/widget.css"); */
 
+  /* Don't use these - reference only */
+  /* --styleguide-primary: hsl(170, 40%, 60%) */
+
   :root {
     /* As per https://bulma.io/documentation/helpers/color-helpers/ */
     --bulma-family-secondary: "Aboreto", serif;
@@ -227,12 +230,20 @@
     --bulma-weight-normal: 300;
     --bulma-weight-extrabold: 350;
 
-    --bulma-primary-h: 170deg;
-    --bulma-primary-s: 40%;
+    /* #40c9f3 */
+    --bulma-primary-h: 195deg;
+    --bulma-primary-s: 90%;
     --bulma-primary-l: 60%;
-    --bulma-link-h: 190deg;
-    --bulma-link-s: 65%;
-    --bulma-link-l: 50%;
+
+    /* Same as primary */
+    --bulma-link-h: 195deg;
+    --bulma-link-s: 90%;
+    --bulma-link-l: 60%;
+
+    /* #4ecac1 */
+    --bulma-info-h: 175deg;
+    --bulma-info-s: 55%;
+    --bulma-info-l: 55%;
 
     --custom-font-branded: "Aboreto", serif;
     --custom-overlay: hsl(0, 0%, 100%, 70%);
