@@ -5,12 +5,16 @@ subtitles:
 theme: ocean
 ---
 
+## Why yin yoga?
+
 Yin yoga offers a unique approach to movement, one that emphasizes stillness, patience, and
 deep release. In contrast to the more common yang styles of yoga, which focus on strength and
 intensity, yin targets the body's deeper connective tissues, such as the fascia, ligaments,
 and joints. By holding postures for extended periods, typically between three to ten minutes,
 the body gradually softens into the stretch, promoting improved mobility, circulation, and
 joint health.
+
+![](/src/lib/cms/media/peace_heart.svg)
 
 One of the most profound benefits of yin yoga is its impact on the nervous system. The
 extended holds encourage diaphragmatic breathing, which stimulates the vagus nerve, helping to
@@ -20,6 +24,8 @@ reducing chronic stress, and supporting hormonal balance. Elevated cortisol over
 linked to inflammation, weakened immunity, and accelerated aging. By naturally lowering
 cortisol through breath-focused yin yoga, the body can better regulate metabolic functions,
 improve sleep quality, and enhance overall well-being.
+
+## Yin for longevity
 
 Breathwork in yin yoga also contributes significantly to longevity. Research suggests that
 controlled, deep breathing increases oxygen efficiency, improves lung capacity, and supports

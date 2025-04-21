@@ -5,6 +5,8 @@ subtitles:
 theme: ocean
 ---
 
+## Longevity & Alignment
+
 At its core, mental independence is self-care. It's the ability to be honest with yourself, to
 set aside distractions and excuses, and to make choices that align with peace, clarity, and
 purpose. Longevity and sobriety are two paths toward the same goal: living a life where you
@@ -17,7 +19,7 @@ and mind, and sober coaching that shifts the way you think, act, and move throug
 are about stepping into a space where you no longer feel the need to escape, but instead,
 build a foundation of trust within yourself.
 
-## Longevity & Alignment: Moving with Purpose, Thinking with Clarity
+## Moving with Purpose, Thinking with Clarity
 
 Longevity is more than just health and movement—it's about sustaining a life that feels
 meaningful. It's about making choices that nourish you physically, mentally, and emotionally,
@@ -37,7 +39,9 @@ Through NLP (neuro-linguistic programming), I help you rewire thought patterns t
 stuck in cycles of doubt or hesitation. This is how longevity becomes more than just a
 practice—it becomes a way of living with purpose, clarity, and self-belief.
 
-## Longevity & Alignment: A Path to Thriving
+![](/src/lib/cms/media/heart_exposure.svg)
+
+## A Path to Thriving
 
 Longevity isn't just about adding years to your life—it's about making those years vibrant,
 strong, and aligned with your deepest purpose. Through the practices of yoga, Pilates,
