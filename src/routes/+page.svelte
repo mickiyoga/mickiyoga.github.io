@@ -58,7 +58,6 @@
 
   <Section id="contact" class="has-background-white">
     <div class="container is-max-desktop has-text-centered">
-      <!-- <h1 class="title">Contact</h1> -->
       <h2 class="subtitle">
         You can email me at
         <a href="mailto:info@micki.yoga">info@micki.yoga</a>
@@ -68,7 +67,8 @@
 
   <Section backgroundImage={storm}>
     <div class="container is-max-desktop">
-      <div id="booking">
+      <!-- TODO: Enable when zcal is set up. -->
+      <!-- <div id="booking">
         <script
           type="text/javascript"
           async
@@ -77,7 +77,7 @@
         <div class="zcal-inline-widget">
           <a href="https://zcal.co/i/Cr77ujp5">Book a session - Schedule a meeting</a>
         </div>
-      </div>
+      </div> -->
       <div id="email-enquiry" class="box">
         <!-- Email redirection service for static sites, courtesy of https://formspree.io/ -->
         <h2 class="has-text-centered">Or send a quick enquiry</h2>

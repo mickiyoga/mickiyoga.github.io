@@ -3,7 +3,7 @@
   import logoBlue from "$lib/assets/logo-organic-blue-64.png";
   import logoGrey from "$lib/assets/logo-organic-grey-32.png";
   import { fade } from "svelte/transition";
-  import type { Action } from "svelte/action";
+  // import type { Action } from "svelte/action";
 
   // Useful for showing a reminder for clients hitting the preview site
   const OFFICIAL_URL = "https://micki.yoga";
@@ -46,26 +46,24 @@
   //     ?.classList.add("has-text-white", "has-background-link");
   // }
 
-  const showOnScroll: Action = (node) => {
-    const hiddenTop = `${-(node.offsetHeight + navbar.offsetHeight)}px`;
-    const visibleTop = `${navbar.offsetHeight}px`;
-    node.style.opacity = "0";
-    node.style.top = hiddenTop;
-    addEventListener("scroll", () => {
-      const showBanner = window.scrollY > 0;
-      node.style.opacity = showBanner ? "1" : "0";
-      node.style.top = showBanner ? visibleTop : "0";
-    });
-  };
+  // const showOnScroll: Action = (node) => {
+  //   const hiddenTop = `${-(node.offsetHeight + navbar.offsetHeight)}px`;
+  //   const visibleTop = `${navbar.offsetHeight}px`;
+  //   node.style.opacity = "0";
+  //   node.style.top = hiddenTop;
+  //   addEventListener("scroll", () => {
+  //     const showBanner = window.scrollY > 0;
+  //     node.style.opacity = showBanner ? "1" : "0";
+  //     node.style.top = showBanner ? visibleTop : "0";
+  //   });
+  // };
 
   setContext("iconCtx", {
     size: "20" // Global Ionicon size in pixels
   });
 
   onMount(() => {
-    showPreviewModal = ![OFFICIAL_URL, "127.0.0.1"].some((url) =>
-      window.location.href.includes(url)
-    );
+    showPreviewModal = data.activatePreviewModal;
   });
 </script>
 
@@ -163,15 +161,16 @@
   </nav>
 
   <!-- Show-on-scroll booking banner -->
-  <section
+  <!-- TODO: Enable when zcal is set up. -->
+  <!-- <section
     id="banner"
     class="block pt-1 pb-4 has-background-white has-text-centered is-italic"
     use:showOnScroll
-  >
-    <!-- Booking link -->
-    Schedule a
+          > -->
+  <!-- Booking link -->
+  <!--  Schedule a
     <a href="/#booking">confidential session</a> for longevity strategies and mental health independence!
-  </section>
+  </section> -->
 
   <!-- Page transition effect -->
   {#key data.currentRoute}
@@ -253,13 +252,13 @@
     min-height: calc(100vh - var(--bulma-navbar-height));
   }
 
-  #banner {
+  /* #banner {
     width: 100%;
     opacity: 0;
     position: fixed;
     transition-duration: 1s;
     z-index: 1;
-  }
+  } */
 
   /* TODO: Will be used for content from CMS - so add this */
   /* Content generated from CMS markdown files */
