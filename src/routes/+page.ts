@@ -1,5 +1,3 @@
-export const prerender = false;
-
 export interface Client {
   name: string;
   logo: string;
