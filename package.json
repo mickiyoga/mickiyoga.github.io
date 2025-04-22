@@ -1,6 +1,7 @@
 {
-  "name": "mass-partnership",
-  "version": "0.0.1",
+  "name": "mickiyoga",
+  "version": "2.0.0",
+  "description": "## Official site for Micki Yoga",
   "private": true,
   "scripts": {
     "dev": "vite dev",
