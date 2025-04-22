@@ -1,0 +1,44 @@
+media:
+  path: src/lib/cms/media
+  input: src/lib/cms/media
+  # Actual value will be dynamically adjusted to either
+  #   import($lib/cms/media/...) or enhanced:img(src="/src/lib/cms/media/...")
+  # TODO: Consider using $lib here for easier identification of paths in code.
+  output: /src/lib/cms/media
+  categories: [image, document]
+content:
+  # Yoga
+  - name: yoga
+    label: Yoga
+    type: file
+    path: src/lib/cms/yoga.yml
+    format: yaml
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: subtitles
+        label: Subtitles
+        type: string
+        list: true
+      - name: theme
+        label: Theme
+        description: For now, this just sets the divider image
+        type: select
+        options:
+          values:
+            - value: agua
+              label: Agua
+            - value: ocean
+              label: Ocean
+            - value: rockpool
+              label: Rock Pool
+            - value: spray
+              label: Spray
+            - value: storm
+              label: Storm
+      - name: body
+        label: Body content
+        type: rich-text
+        required: true
