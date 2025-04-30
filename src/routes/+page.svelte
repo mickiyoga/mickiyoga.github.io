@@ -11,23 +11,18 @@
 <template>
   <enhanced:img class="backdrop" src="/src/lib/assets/dancer_pose.jpg" />
 
-  <header class="is-flex">
-    <div class="columns is-flex-grow-1">
-      <div class="column is-three-fifths p-0"></div>
-      <div class="column is-two-fifths is-flex has-text-right">
-        <div class="tinted is-flex is-flex-grow-1 is-justify-content-flex-end">
-          <div class="section is-flex is-flex-direction-column is-justify-content-space-between">
-            <div class="block">
-              <h1 class="title is-size-1 has-text-white">Micki Yoga</h1>
-              <h2 class="subtitle has-text-white">Micaela 'Micki' Romero</h2>
-            </div>
-            <div class="block">
-              <a class="block-link" href="/longevity"> Mental Independence and Longevity Sherpa </a>
-              <a class="block-link mb-5" href="/yin">
-                Yin Yoga: The Key to Deep Release and Longevity
-              </a>
-            </div>
-          </div>
+  <header class="is-flex is-justify-content-flex-end">
+    <div class="tinted is-flex is-justify-content-flex-end has-text-right">
+      <div class="section is-flex is-flex-direction-column is-justify-content-space-between">
+        <div class="block">
+          <h1 class="title is-size-1 has-text-white">Micki Yoga</h1>
+          <h2 class="subtitle has-text-white">Micaela 'Micki' Romero</h2>
+        </div>
+        <div class="block">
+          <a class="block-link" href="/longevity"> Mental Independence and Longevity Sherpa </a>
+          <a class="block-link mb-5" href="/yin">
+            Yin Yoga: The Key to Deep Release and Longevity
+          </a>
         </div>
       </div>
     </div>
@@ -129,7 +124,7 @@
     position: fixed;
     min-height: 100%;
     object-fit: cover;
-    object-position: 30% 50%;
+    object-position: 15% 50%;
     z-index: -999;
   }
 
@@ -138,8 +133,21 @@
   }
 
   .tinted {
-    background-image: linear-gradient(transparent, transparent, hsla(182, 59%, 11%, 0.5));
-    backdrop-filter: blur(0.5ex);
+    background-image: linear-gradient(hsla(190, 70%, 50%, 0.8) , transparent, transparent, hsla(190, 70%, 10%, 0.8));
+    width: 100%;
+  }
+
+  /* Desktop views can be a bit fancier with the header image. */
+  /* There isn't a bulma var for the 768px break point??? */
+  @media only screen and (min-width: 769px) {
+    .tinted {
+      backdrop-filter: blur(0.6ex);
+      max-width: 40%;
+    }
+
+    .backdrop {
+      object-position: 30% 50%;
+    }
   }
 
   .block-link {
