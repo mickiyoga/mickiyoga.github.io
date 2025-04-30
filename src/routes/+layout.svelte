@@ -8,6 +8,26 @@
   // Useful for showing a reminder for clients hitting the preview site
   const OFFICIAL_URL = "https://micki.yoga";
 
+  type MenuItem = [name: string, href: string];
+
+  const MAIN_MENU: MenuItem[] = [
+    ["About Me", "/about"],
+    ["Yin Yoga", "/yin"],
+    ["Longevity", "/longevity"],
+    ["Transformation Coach", "/transformation"]
+  ];
+
+  const MINOR_MENU: MenuItem[] = [
+    ["Yoga for Everyone", "/yoga"],
+    ["NLP & Hypnotherapy", "/nlp"],
+    // ["Sound Healing", "/sound-healing"],
+    ["Pilates", "/pilates"],
+    ["Personal Training", "/pt"],
+    ["Myobility", "/myobility"]
+    // Use navbar-divider?
+    // ["Art", "/art"]
+  ];
+
   let { children, data } = $props();
   let navbar: HTMLElement;
 
@@ -116,22 +136,15 @@
 
     <div class={["navbar-menu", showMenu && "is-active"]}>
       <div class="navbar-start">
-        <a class="navbar-item" href="/about"> About Me </a>
-        <a class="navbar-item" href="/yin"> Yin Yoga </a>
-        <a class="navbar-item" href="/longevity"> Longevity </a>
-        <a class="navbar-item" href="/transformation"> Transformation Coach </a>
+        {#each MAIN_MENU as [name, href]}
+          <a class="navbar-item" {href} onclick={toggleBurger}>{name}</a>
+        {/each}
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#top"> More </a>
+          <span class="navbar-link"> More </span>
           <div class="navbar-dropdown">
-            <a class="navbar-item" href="/yoga"> Yoga for Everyone</a>
-            <a class="navbar-item" href="/nlp"> NLP & Hypnotherapy </a>
-            <!-- <a class="navbar-item" href="/sound-healing">Sound Healing</a> -->
-            <hr class="navbar-divider" />
-            <a class="navbar-item" href="/pilates"> Pilates </a>
-            <a class="navbar-item" href="/pt"> Personal Training </a>
-            <a class="navbar-item" href="/myobility"> Myobility </a>
-            <!-- <hr class="navbar-divider" /> -->
-            <!-- <a class="navbar-item" href="/art">Art</a> -->
+            {#each MINOR_MENU as [name, href]}
+              <a class="navbar-item" {href} onclick={toggleBurger}>{name}</a>
+            {/each}
           </div>
         </div>
       </div>
@@ -260,7 +273,6 @@
     z-index: 1;
   } */
 
-  /* TODO: Will be used for content from CMS - so add this */
   /* Content generated from CMS markdown files */
   /* There isn't a bulma var for the 768px break point??? */
   @media only screen and (min-width: 769px) {
