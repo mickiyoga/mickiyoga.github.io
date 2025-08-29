@@ -5,20 +5,20 @@
   interface Props {
     children: Snippet;
     id?: string;
-    class?: ClassValue;
+    sectionClass?: ClassValue;
     backgroundImage?: string;
   }
 
-  const props: Props = $props();
+  const { children, id, sectionClass, backgroundImage }: Props = $props();
 </script>
 
 <template>
   <section
-    id={props.id}
-    class={["section", props.class]}
-    style="background-image: url({props.backgroundImage}); background-size: cover;"
+    {id}
+    class={["section", sectionClass]}
+    style="background-image: url({backgroundImage}); background-size: cover;"
   >
-    {@render props.children?.()}
+    {@render children?.()}
   </section>
 </template>
 

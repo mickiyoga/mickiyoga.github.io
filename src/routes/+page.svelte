@@ -28,13 +28,13 @@
     </div>
   </header>
 
-  <Section class="has-background-white">
+  <Section sectionClass="has-background-white">
     <div class="container is-max-desktop has-text-centered">
       <h1 class="title">Join my other happy clients</h1>
     </div>
   </Section>
 
-  <Section class="has-background-white">
+  <Section sectionClass="has-background-white">
     <div class="is-flex is-flex-wrap-wrap is-justify-content-space-evenly is-align-items-center">
       {#each clients as { url, logo }}
         <div class="cell is-grow-0">
@@ -51,7 +51,7 @@
     </div>
   </Section>
 
-  <Section id="contact" class="has-background-white">
+  <Section id="contact" sectionClass="has-background-white">
     <div class="container is-max-desktop has-text-centered">
       <h2 class="subtitle">
         You can email me at
@@ -133,7 +133,12 @@
   }
 
   .tinted {
-    background-image: linear-gradient(hsla(190, 70%, 50%, 0.8) , transparent, transparent, hsla(190, 70%, 10%, 0.8));
+    background-image: linear-gradient(
+      hsla(190, 70%, 50%, 0.8),
+      transparent,
+      transparent,
+      hsla(190, 70%, 10%, 0.8)
+    );
     width: 100%;
   }
 

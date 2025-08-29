@@ -12,14 +12,14 @@
 
   interface Props {
     children: Snippet;
-    class?: ClassValue;
+    sectionClass?: ClassValue;
     size?: HeroSize;
   }
 
-  const props: Props = $props();
+  const { children, sectionClass, size }: Props = $props();
 
   let sizeClass = $derived.by(() => {
-    switch (props.size) {
+    switch (size) {
       case HeroSize.Small:
         return "is-small";
       case HeroSize.Medium:
@@ -33,9 +33,9 @@
 </script>
 
 <template>
-  <section class={["hero", props.class, sizeClass]}>
+  <section class={["hero", sectionClass, sizeClass]}>
     <div class="hero-body">
-      {@render props.children?.()}
+      {@render children?.()}
     </div>
   </section>
 </template>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  let props = $props();
+  let { image } = $props();
 
   function getEnhancedImage() {
     const images = import.meta.glob("/src/lib/assets/abstract/*.jpg", {
@@ -8,7 +8,7 @@
       import: "default"
     }) as Record<string, string>;
 
-    return images[`/src/lib/assets/abstract/${props.image ?? "ocean"}.jpg`];
+    return images[`/src/lib/assets/abstract/${image ?? "ocean"}.jpg`];
   }
 </script>
 

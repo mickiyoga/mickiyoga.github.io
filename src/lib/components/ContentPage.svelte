@@ -10,21 +10,21 @@
     title: string;
     subtitles?: string[];
     theme?: string;
-    class?: ClassValue;
+    sectionClass?: ClassValue;
   }
 
-  const props: Props = $props();
+  const { children, title, subtitles, theme, sectionClass }: Props = $props();
 </script>
 
 <template>
   <Hero>
     <h1 class="title">
-      {props.title}
+      {title}
     </h1>
-    {#if props.subtitles}
+    {#if subtitles}
       <h2 class="subtitle">
         <ul>
-          {#each props.subtitles as sub}
+          {#each subtitles as sub}
             <li>{sub}</li>
           {/each}
         </ul>
@@ -32,11 +32,11 @@
     {/if}
   </Hero>
 
-  <ImageDivider image={props.theme} />
+  <ImageDivider image={theme} />
 
-  <Section class={props.class}>
+  <Section {sectionClass}>
     <article class="container is-max-desktop content markdown-columns">
-      {@render props.children()}
+      {@render children()}
     </article>
   </Section>
 </template>

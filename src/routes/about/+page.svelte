@@ -6,7 +6,7 @@
 </script>
 
 <template>
-  <ContentPage {title} {subtitles} {theme} class="has-text-centered">
+  <ContentPage {title} {subtitles} {theme} sectionClass="has-text-centered">
     <Content />
   </ContentPage>
 </template>

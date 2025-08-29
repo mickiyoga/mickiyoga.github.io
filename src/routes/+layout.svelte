@@ -196,7 +196,7 @@
     <div class="container has-text-centered">
       <img src={logoGrey} alt="Micki Yoga logo" />
       <div class="is-size-7">
-        © Micaela Romero {getCopyrightYear()}
+        © Micaela Romero, James Manley {getCopyrightYear()}
       </div>
     </div>
   </footer>
