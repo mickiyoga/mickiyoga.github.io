@@ -2,11 +2,11 @@
   import ContentPage from "$lib/components/ContentPage.svelte";
 
   let { data } = $props();
-  const { title, subtitles, theme, Content } = data;
+  const { title, subtitles, theme, Content } = $derived(data);
 </script>
 
 <template>
-  <ContentPage {title} {subtitles} {theme} class="has-text-centered">
+  <ContentPage {title} {subtitles} {theme} sectionClass="has-text-centered">
     <Content />
   </ContentPage>
 </template>
