@@ -16,7 +16,7 @@
     size?: HeroSize;
   }
 
-  const { children, sectionClass, size }: Props = $props();
+  const { sectionClass, size, children }: Props = $props();
 
   let sizeClass = $derived.by(() => {
     switch (size) {

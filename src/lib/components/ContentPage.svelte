@@ -13,7 +13,7 @@
     sectionClass?: ClassValue;
   }
 
-  const { children, title, subtitles, theme, sectionClass }: Props = $props();
+  const { title, subtitles, theme, sectionClass, children }: Props = $props();
 </script>
 
 <template>

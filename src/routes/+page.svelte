@@ -5,7 +5,7 @@
 
   let { data } = $props();
 
-  const clients: Client[] = data.clients;
+  const clients: Client[] = $derived(data.clients);
 </script>
 
 <template>

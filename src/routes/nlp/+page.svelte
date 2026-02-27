@@ -2,7 +2,7 @@
   import ContentPage from "$lib/components/ContentPage.svelte";
 
   let { data } = $props();
-  const { title, subtitles, theme, Content } = data;
+  const { title, subtitles, theme, Content } = $derived(data);
 </script>
 
 <template>

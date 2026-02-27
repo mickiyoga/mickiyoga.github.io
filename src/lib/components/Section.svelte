@@ -9,7 +9,7 @@
     backgroundImage?: string;
   }
 
-  const { children, id, sectionClass, backgroundImage }: Props = $props();
+  const { id, sectionClass, backgroundImage, children }: Props = $props();
 </script>
 
 <template>
