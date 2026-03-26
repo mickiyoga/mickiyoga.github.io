@@ -11,6 +11,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
+    "update:clean": "rm package-lock.json; git clean -fdx; npm install",
     "pseudo-deploy": "npm run build && npx http-server ./build"
   },
   "devDependencies": {
