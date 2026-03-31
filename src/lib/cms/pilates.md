@@ -4,7 +4,7 @@ subtitles:
 theme: storm
 ---
 
-I am qualified in Pilates instruction, holding a Pilates Anatomy, Pilates Complete Mat Course, and Pilates Reformer Instructor Certification, from [Taube Pilates](https://www.taubepilatestraining.com/).
+I am qualified in Pilates instruction, holding a Pilates Anatomy, Pilates Complete Mat Course, and Pilates Reformer Instructor Certification, from [Taube Pilates](https://www.taubepilates.com/contact-Taube-Pilates-teacher-courses-online).
 
 ![](/src/lib/cms/media/3rd_party/taube.png)
 
