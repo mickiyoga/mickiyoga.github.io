@@ -3,7 +3,7 @@
   import { type Client } from "./+page";
   import storm from "$lib/assets/abstract/storm.jpg";
   import FormspreeContact from "$lib/components/FormspreeContact.svelte";
-    import ContactForm from "$lib/components/ContactForm.svelte";
+  import ContactForm from "$lib/components/ContactForm.svelte";
 
   let { data } = $props();
 
@@ -21,9 +21,7 @@
       </div>
       <div class="block">
         <a class="block-link" href="/longevity"> Mental Independence and Longevity Sherpa </a>
-        <a class="block-link mb-5" href="/yin">
-          Yin Yoga: The Key to Deep Release and Longevity
-        </a>
+        <a class="block-link mb-5" href="/yin"> Yin Yoga: The Key to Deep Release and Longevity </a>
       </div>
     </div>
   </div>

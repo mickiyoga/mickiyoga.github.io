@@ -1,8 +1,9 @@
 <script>
-  import { PUBLIC_FORMSPREE_ID } from '$env/static/public';
+  import { PUBLIC_FORMSPREE_ID } from "$env/static/public";
 
   $inspect(PUBLIC_FORMSPREE_ID);
 </script>
+
 <div id="email-enquiry" class="box">
   <!-- Email redirection service for static sites, courtesy of https://formspree.io/ -->
   <h2 class="has-text-centered">Or send a quick enquiry</h2>
@@ -28,12 +29,7 @@
     <div class="field">
       <label class="label" for="email-body"> Enquiry </label>
       <div class="control">
-        <textarea
-          id="email-body"
-          class="textarea"
-          rows="3"
-          name="enquiry"
-          placeholder="Hi Micki..."
+        <textarea id="email-body" class="textarea" rows="3" name="enquiry" placeholder="Hi Micki..."
         ></textarea>
       </div>
     </div>
