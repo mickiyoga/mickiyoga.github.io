@@ -1,7 +1,5 @@
 <script>
   import { PUBLIC_FORMSPREE_ID } from "$env/static/public";
-
-  $inspect(PUBLIC_FORMSPREE_ID);
 </script>
 
 <div id="email-enquiry" class="box">

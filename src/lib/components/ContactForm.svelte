@@ -38,7 +38,6 @@
 
   const subject = "Contact Form Submission";
 
-  /* ---- reactive state ------------------------------------------- */
   let name = $state("");
   let email = $state("");
   let message = $state("");
@@ -130,14 +129,14 @@
 
     isSubmitting = true;
     try {
-      const res = await fetch(AJAX_ENDPOINT, {
+      const result = await fetch(AJAX_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({ name, email, message, _subject: subject })
       });
-      const data: { success?: string | boolean; message?: string } = await res.json();
+      const data: { success?: string | boolean; message?: string } = await result.json();
 
-      if (res.ok && data.success) {
+      if (result.ok && data.success) {
         successMessage = "Your message has been sent. Thank you!";
         resetAll();
       } else {
@@ -150,16 +149,16 @@
     }
   }
 
-  function handleCodeInput(e: Event): void {
-    const t = e.currentTarget as HTMLInputElement;
-    t.value = sanitizeCodeInput(t.value);
-    enteredCode = t.value;
+  function handleCodeInput(event: Event): void {
+    const input = event.currentTarget as HTMLInputElement;
+    input.value = sanitizeCodeInput(input.value);
+    enteredCode = input.value;
     if (codeError) codeError = "";
   }
 
-  function handleCodeKeydown(e: KeyboardEvent): void {
-    if (e.key === "Enter" && !locked) {
-      e.preventDefault();
+  function handleCodeKeydown(event: KeyboardEvent): void {
+    if (event.key === "Enter" && !locked) {
+      event.preventDefault();
       verifyCode();
     }
   }
@@ -229,13 +228,7 @@
     ts: number;
   }
 
-  /** Minimal Storage surface so tests don't need a DOM. */
-  type StorageLike = Pick<Storage, "getItem" | "setItem" | "removeItem">;
-
-  /* ---------- pure helpers --------------------------------------------- */
-
   function generateCode(rng: () => number = Math.random): string {
-    // Clamp so an out-of-contract rng() === 1 can't yield "10000".
     const n = 1000 + Math.floor(rng() * 9000);
     return String(Math.min(n, 9999));
   }
@@ -273,7 +266,7 @@
    * relies on the exception to detect private-browsing / quota failures.
    */
   function createPendingStore(
-    storage: StorageLike | null | undefined,
+    storage: Storage | null | undefined,
     key: string,
     expiryMs: number,
     clock: () => number = Date.now
@@ -400,6 +393,7 @@
         <div class="field">
           <input
             bind:this={codeInput}
+            name="code"
             class="input is-large"
             type="text"
             inputmode="numeric"
@@ -510,5 +504,10 @@
     width: 1px;
     height: 1px;
     opacity: 0;
+  }
+
+  input[name="code"] {
+    width: 4em;
+    text-align: center;
   }
 </style>

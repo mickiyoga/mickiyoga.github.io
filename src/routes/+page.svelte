@@ -60,7 +60,7 @@
 </Section>
 
 <Section backgroundImage={storm}>
-  <div class="container is-max-desktop">
+  <!-- <div class="container is-max-desktop"> -->
     <!-- TODO: Enable when zcal is set up. -->
     <!-- <div id="booking">
       <script
@@ -72,8 +72,9 @@
         <a href="https://zcal.co/i/Cr77ujp5">Book a session - Schedule a meeting</a>
       </div>
     </div> -->
-    <FormspreeContact />
-  </div>
+
+    <!-- <FormspreeContact /> -->
+  <!-- </div> -->
   <div class="container is-max-desktop">
     <ContactForm />
   </div>
