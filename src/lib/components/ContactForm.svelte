@@ -21,7 +21,13 @@
     PUBLIC_CONTACT_FORM_STORAGE_KEY
   } from "$env/static/public";
 
-  $inspect(PUBLIC_CONTACT_FORM_ID);
+  type Step = "ready"
+    | "code"
+    | "expired"
+    | "exhausted"
+    | "verified"
+    | "submitting"
+    | "success";
 
   const MAX_ATTEMPTS = 3;
   const EXPIRY_MS = 600_000;
@@ -36,32 +42,37 @@
     EXPIRY_MS
   );
 
-  const subject = "Contact Form Submission";
-
+  let step: Step = $state("ready");
   let name = $state("");
   let email = $state("");
   let message = $state("");
   let enteredCode = $state("");
   let attempts = $state(0);
-  let awaitingCode = $state(false);
-  let isEmailVerified = $state(false);
   let expiresAt = $state(0);
   let now = $state(Date.now());
-  let isSubmitting = $state(false);
   let formError = $state("");
   let codeError = $state("");
-  let successMessage = $state("");
 
   let generatedCode = "";
 
-  const exhausted = $derived(attempts >= MAX_ATTEMPTS);
   const remainingMs = $derived(Math.max(0, expiresAt - now));
-  const expired = $derived(awaitingCode && expiresAt > 0 && now >= expiresAt);
-  const locked = $derived(exhausted || expired);
+  let locked = $state(false);
 
   let autoResponseInput = $state<HTMLInputElement>();
   let nextInput = $state<HTMLInputElement>();
   let codeInput = $state<HTMLInputElement>();
+
+  $effect(() => {
+    if (step === "exhausted") {
+      locked = true;
+      return;
+    }
+
+    if ((step === "code") && expiresAt > 0 && now >= expiresAt) {
+      step = "expired";
+      locked = true;
+    }
+  });
 
   $effect(() => {
     const pending = pendingStore.load();
@@ -71,11 +82,12 @@
     email = pending.email;
     generatedCode = pending.code;
     expiresAt = pending.ts + EXPIRY_MS;
-    awaitingCode = true;
+    step = "code";
   });
 
   $effect(() => {
-    if (!awaitingCode) return;
+    if (step !== "code") return;
+
     now = Date.now();
     const id = setInterval(() => {
       now = Date.now();
@@ -84,18 +96,19 @@
   });
 
   $effect(() => {
-    if (expired) {
-    }
-  });
-
-  $effect(() => {
-    if (awaitingCode) codeInput?.focus();
+    if (step === "code") codeInput?.focus();
   });
 
   function onsubmit(event: SubmitEvent): void {
-    clearFormFeedback();
+    clearErrors();
 
-    if (isEmailVerified) {
+    if (step === "code") {
+      event.preventDefault();
+      verifyCode();
+      return;
+    }
+
+    if (step === "verified") {
       event.preventDefault();
       void sendMessage();
       return;
@@ -127,25 +140,25 @@
       return;
     }
 
-    isSubmitting = true;
+    step = "submitting";
     try {
       const result = await fetch(AJAX_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ name, email, message, _subject: subject })
+        body: JSON.stringify({ name, email, message, _subject: "Contact Form Submission" })
       });
       const data: { success?: string | boolean; message?: string } = await result.json();
 
       if (result.ok && data.success) {
-        successMessage = "Your message has been sent. Thank you!";
         resetAll();
       } else {
         formError = data.message ?? "Failed to send message. Please try again.";
       }
     } catch {
       formError = "Network error. Please check your connection and try again.";
+      step = "verified";
     } finally {
-      isSubmitting = false;
+      step = "success";
     }
   }
 
@@ -170,8 +183,8 @@
     }
 
     if (enteredCode === generatedCode) {
-      isEmailVerified = true;
-      awaitingCode = false;
+      step = "verified";
+
       expiresAt = 0;
       pendingStore.clear();
       resetVerificationState();
@@ -181,15 +194,7 @@
     attempts++;
     enteredCode = "";
     codeError = incorrectCodeMessage(attempts, MAX_ATTEMPTS);
-    if (!exhausted) codeInput?.focus();
-  }
-
-  function cancelVerification(): void {
-    awaitingCode = false;
-    generatedCode = "";
-    expiresAt = 0;
-    pendingStore.clear();
-    resetVerificationState();
+    codeInput?.focus();
   }
 
   function resetVerificationState(): void {
@@ -198,27 +203,20 @@
     codeError = "";
   }
 
-  function revokeVerification(): void {
-    isEmailVerified = false;
-    message = "";
-    generatedCode = "";
-  }
-
   function resetAll(): void {
     name = "";
     email = "";
     message = "";
     generatedCode = "";
-    isEmailVerified = false;
-    awaitingCode = false;
+    step = "ready";
+
     expiresAt = 0;
     resetVerificationState();
     pendingStore.clear();
   }
 
-  function clearFormFeedback(): void {
+  function clearErrors(): void {
     formError = "";
-    successMessage = "";
   }
 
   interface PendingVerification {
@@ -309,7 +307,6 @@
 </script>
 
 <div class="box">
-  <h2 class="has-text-centered">Or send a quick enquiry</h2>
   <form action={HTML_ENDPOINT} method="POST" {onsubmit}>
     <input
       type="text"
@@ -319,62 +316,36 @@
       aria-hidden="true"
       class="honeypot"
     />
+    <input bind:this={autoResponseInput} type="hidden" name="_autoresponse" />
+    <input bind:this={nextInput} type="hidden" name="_next" />
+    <input type="hidden" name="_subject" value="Email code requested" />
 
-    <div class="field">
-      <label class="label" for="cf-name">Name</label>
-      <div class="control has-icons-left">
-        <input
-          id="cf-name"
-          class="input"
-          type="text"
-          name="name"
-          bind:value={name}
-          oninput={clearFormFeedback}
-          required
-          disabled={isSubmitting || awaitingCode}
-          autocomplete="name"
-        />
-        <span class="icon is-small is-left">
-          <i class="far fa-circle-user"></i>
-        </span>
+    {#if step === "ready"}
+      <h2 class="has-text-centered">Or send a quick enquiry</h2>
+      <div class="field">
+        <label class="label" for="cf-email">
+          Your email
+        </label>
+        <div class="control has-icons-left">
+          <input
+            id="cf-email"
+            class="input"
+            type="email"
+            name="email"
+            bind:value={email}
+            oninput={clearErrors}
+            required
+            disabled={step !== "ready"}
+            autocomplete="email"
+          />
+          <span class="icon is-small is-left">
+            <i class="far fa-envelope"></i>
+          </span>
+        </div>
       </div>
-    </div>
-
-    <div class="field">
-      <label class="label" for="cf-email">
-        Email
-        {#if isEmailVerified}<span class="tag">✓ Verified</span>{/if}
-      </label>
-      <div class="control has-icons-left">
-        <input
-          id="cf-email"
-          class="input"
-          type="email"
-          name="email"
-          bind:value={email}
-          oninput={clearFormFeedback}
-          required
-          disabled={isSubmitting || awaitingCode || isEmailVerified}
-          autocomplete="email"
-        />
-        <span class="icon is-small is-left">
-          <i class="far fa-envelope"></i>
-        </span>
-      </div>
-      {#if isEmailVerified}
-        <button type="button" onclick={revokeVerification}>
-          Use a different email
-        </button>
-      {/if}
-    </div>
-
-    {#if !isEmailVerified && !awaitingCode}
-      <input bind:this={autoResponseInput} type="hidden" name="_autoresponse" />
-      <input bind:this={nextInput} type="hidden" name="_next" />
-      <input type="hidden" name="_subject" value="[Verification] Email code request" />
     {/if}
 
-    {#if awaitingCode}
+    {#if step === "code"}
       <fieldset class="has-text-centered">
         <div class="notification is-primary is-light">
           <p class="block">
@@ -382,11 +353,7 @@
           </p>
 
           <p class="block">
-            {#if expired}
-              Code expired
-            {:else}
-              Expires in <strong>{formatCountdown(remainingMs)}</strong>
-            {/if}
+            Expires in <strong>{formatCountdown(remainingMs)}</strong>
           </p>
         </div>
 
@@ -411,45 +378,46 @@
           />
         </div>
 
-          {#if codeError}
-            <div class="notification is-warning is-light">
-              <p id="cf-code-error" role="alert">{codeError}</p>
-            </div>
-          {/if}
-
-        <div  class="field">
-          {#if locked}
-            <button type="button" class="button is-primary" onclick={cancelVerification}>
-              Start Over
-            </button>
-          {:else}
-            <button
-              type="button"
-              class="button is-primary"
-              onclick={verifyCode}
-              disabled={enteredCode.length !== 4}
-            >
-              Verify
-            </button>
-            <button type="button" class="button is-primary is-light" onclick={cancelVerification}>
-              Try a different address
-            </button>
-          {/if}
-        </div>
-
-        {#if expired}
-          <p class="notification is-primary is-light">
-            Your code has expired. Start over to request a new one.
-          </p>
-        {:else if exhausted}
-          <p class="notification is-primary is-light">
-              Too many attempts. Start over to request a new code.
-          </p>
+        {#if codeError}
+          <div class="notification is-warning is-light">
+            <p id="cf-code-error" role="alert">{codeError}</p>
+          </div>
         {/if}
       </fieldset>
     {/if}
 
-    {#if isEmailVerified}
+    {#if step === "expired"}
+      <p class="notification is-primary is-light">
+        Your code has expired. Start over to request a new one.
+      </p>
+    {/if}
+
+    {#if step === "exhausted"}
+      <p class="notification is-primary is-light">
+          Too many attempts. Start over to request a new code.
+      </p>
+    {/if}
+
+    {#if step === "verified"}
+      <div class="field">
+        <label class="label" for="cf-name">Name</label>
+        <div class="control has-icons-left">
+          <input
+            id="cf-name"
+            class="input"
+            type="text"
+            name="name"
+            bind:value={name}
+            oninput={clearErrors}
+            required
+            autocomplete="name"
+          />
+          <span class="icon is-small is-left">
+            <i class="far fa-circle-user"></i>
+          </span>
+        </div>
+      </div>
+
       <div class="field">
         <label class="label" for="cf-message">Your Message</label>
         <div class="control">
@@ -459,9 +427,8 @@
             rows="3"
             placeholder="Hi Micki..."
             bind:value={message}
-            oninput={clearFormFeedback}
+            oninput={clearErrors}
             required
-            disabled={isSubmitting}
           ></textarea>
         </div>
       </div>
@@ -470,30 +437,42 @@
     {#if formError}
       <div class="notification is-warning is-light" role="alert">{formError}</div>
     {/if}
-    {#if successMessage}
-      <div class="notification is-success is-light" role="status">{successMessage}</div>
+
+    {#if step === "success"}
+      <div class="notification is-success is-light" role="status">
+        Your message has been sent. Thank you!
+      </div>
     {/if}
 
-    {#if !awaitingCode}
-      <div class="field">
-        <div class="control has-text-centered">
+    <div class="field">
+      <div class="control has-text-centered">
+        {#if step !== "expired" && step !== "exhausted"}
           <button
             type="submit"
             class="button is-link"
-            class:is-loading={isSubmitting}
-            disabled={isSubmitting}
+            class:is-loading={step === "submitting"}
+            disabled={locked || step === "submitting" || step === "success"}
           >
-            {#if isSubmitting}
+            {#if step === "submitting"}
               Sending…
-            {:else if isEmailVerified}
+            {:else if step === "code"}
+              Verify
+            {:else if step === "verified" || step === "success"}
               Send Message
             {:else}
               Verify Email
             {/if}
           </button>
-        </div>
+        {/if}
+
+        {#if step !== "ready"}
+          <button type="button" class="button is-primary is-light" onclick={resetAll}>
+            Start Over
+          </button>
+        {/if}
       </div>
-    {/if}
+    </div>
+
   </form>
 </div>
 
