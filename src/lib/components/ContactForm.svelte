@@ -20,14 +20,6 @@
 
   type Step = "ready" | "code" | "expired" | "exhausted" | "verified" | "submitting" | "success";
 
-  interface Location {
-    provider: string;
-    ip: string;
-    city: string;
-    region: string;
-    country: string;
-  }
-
   const MAX_ATTEMPTS = 3;
   const EXPIRY_MS = 600_000;
   const HTML_ENDPOINT = `https://formsubmit.co/${PUBLIC_CONTACT_FORM_ID}`;
@@ -51,6 +43,7 @@
   let now = $state(Date.now());
   let formError = $state("");
   let codeError = $state("");
+  let showPrivacyPolicy = $state(false);
 
   let generatedCode = "";
 
@@ -333,6 +326,11 @@ Country: ${data.countryName}
       }
     };
   }
+
+  function togglePrivacyPolicy() {
+    
+    showPrivacyPolicy = !showPrivacyPolicy;
+  }
 </script>
 
 <div class="box">
@@ -374,13 +372,9 @@ Country: ${data.countryName}
 
     {#if step === "code"}
       <fieldset class="has-text-centered">
-        <div class="notification is-primary is-light">
+        <div class="notification is-info is-light">
           <p class="block">
             Please check <strong>{email}</strong> for your verification code
-          </p>
-
-          <p class="block">
-            Expires in <strong>{formatCountdown(remainingMs)}</strong>
           </p>
         </div>
 
@@ -405,6 +399,10 @@ Country: ${data.countryName}
           />
         </div>
 
+        <p class="block">
+          Expires in <strong>{formatCountdown(remainingMs)}</strong>
+        </p>
+
         {#if codeError}
           <div class="notification is-warning is-light">
             <p id="cf-code-error" role="alert">{codeError}</p>
@@ -414,18 +412,18 @@ Country: ${data.countryName}
     {/if}
 
     {#if step === "expired"}
-      <p class="notification is-primary is-light">
+      <p class="notification is-info is-light has-text-centered">
         Your code has expired. Start over to request a new one.
       </p>
     {/if}
 
     {#if step === "exhausted"}
-      <p class="notification is-primary is-light">
+      <p class="notification is-info is-light has-text-centered">
         Too many attempts. Start over to request a new code.
       </p>
     {/if}
 
-    {#if step === "verified"}
+    {#if step === "verified" || step === "submitting" || step === "success"}
       <div class="field">
         <label class="label" for="cf-name">Name</label>
         <div class="control has-icons-left">
@@ -438,6 +436,7 @@ Country: ${data.countryName}
             oninput={clearErrors}
             required
             autocomplete="name"
+            disabled={step !== "verified"}
           />
           <span class="icon is-small is-left">
             <i class="far fa-circle-user"></i>
@@ -456,9 +455,27 @@ Country: ${data.countryName}
             bind:value={message}
             oninput={clearErrors}
             required
+            disabled={step !== "verified"}
           ></textarea>
         </div>
       </div>
+
+      {#if step !== "success"}
+        <div class="notification is-info is-light has-text-centered">
+            <em>
+              By submitting this form, you agree to our
+              <button
+                class="is-underlined"
+                type="button"
+                onclick={togglePrivacyPolicy}
+              >
+                  Privacy Policy
+              </button>,
+              which includes the collection of your IP address for
+              security and spam prevention.
+            </em>
+        </div>
+      {/if}
     {/if}
 
     {#if formError}
@@ -466,12 +483,12 @@ Country: ${data.countryName}
     {/if}
 
     {#if step === "success"}
-      <div class="notification is-success is-light" role="status">
+      <div class="notification is-success is-light has-text-centered" role="status">
         Your message has been sent. Thank you!
       </div>
     {/if}
 
-    <div class="field">
+    <div class="field mt-6">
       <div class="control has-text-centered">
         {#if step !== "expired" && step !== "exhausted"}
           <button
@@ -500,6 +517,129 @@ Country: ${data.countryName}
       </div>
     </div>
   </form>
+</div>
+
+<div class="modal" class:is-active={showPrivacyPolicy}>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head has-text-centered">
+      <p class="modal-card-title">Privacy Policy</p>
+    </header>
+    <section class="modal-card-body">
+      <p>
+        [Full privacy policy details to go here...]
+      </p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+      <p>...</p>
+
+    </section>
+    <footer class="modal-card-foot">
+      <div class="container has-text-centered">
+        <button class="button is-link" onclick={togglePrivacyPolicy}>
+          Understood
+        </button>
+      </div>
+    </footer>
+  </div>
+  <button class="modal-close is-large" onclick={togglePrivacyPolicy} aria-label="close"></button>
 </div>
 
 <style>
