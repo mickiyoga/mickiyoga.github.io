@@ -61,8 +61,8 @@
 
 <Section backgroundImage={storm}>
   <!-- <div class="container is-max-desktop"> -->
-    <!-- TODO: Enable when zcal is set up. -->
-    <!-- <div id="booking">
+  <!-- TODO: Enable when zcal is set up. -->
+  <!-- <div id="booking">
       <script
         type="text/javascript"
         async
@@ -73,7 +73,7 @@
       </div>
     </div> -->
 
-    <!-- <FormspreeContact /> -->
+  <!-- <FormspreeContact /> -->
   <!-- </div> -->
   <div class="container is-max-desktop">
     <ContactForm />

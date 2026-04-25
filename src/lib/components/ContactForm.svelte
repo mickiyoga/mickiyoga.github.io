@@ -16,18 +16,17 @@
 
 <script lang="ts">
   import { browser } from "$app/environment";
-  import {
-    PUBLIC_CONTACT_FORM_ID,
-    PUBLIC_CONTACT_FORM_STORAGE_KEY
-  } from "$env/static/public";
+  import { PUBLIC_CONTACT_FORM_ID, PUBLIC_CONTACT_FORM_STORAGE_KEY } from "$env/static/public";
 
-  type Step = "ready"
-    | "code"
-    | "expired"
-    | "exhausted"
-    | "verified"
-    | "submitting"
-    | "success";
+  type Step = "ready" | "code" | "expired" | "exhausted" | "verified" | "submitting" | "success";
+
+  interface Location {
+    provider: string;
+    ip: string;
+    city: string;
+    region: string;
+    country: string;
+  }
 
   const MAX_ATTEMPTS = 3;
   const EXPIRY_MS = 600_000;
@@ -68,7 +67,7 @@
       return;
     }
 
-    if ((step === "code") && expiresAt > 0 && now >= expiresAt) {
+    if (step === "code" && expiresAt > 0 && now >= expiresAt) {
       step = "expired";
       locked = true;
     }
@@ -142,11 +141,29 @@
 
     step = "submitting";
     try {
+      const location = await getLocationDescription();
+
+      const messageWithLocation = `
+${message}
+
+==================
+User location data
+==================
+
+${location}
+      `;
+
       const result = await fetch(AJAX_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ name, email, message, _subject: "Contact Form Submission" })
+        body: JSON.stringify({
+          name,
+          email,
+          message: messageWithLocation,
+          _subject: "Contact Form Submission"
+        })
       });
+
       const data: { success?: string | boolean; message?: string } = await result.json();
 
       if (result.ok && data.success) {
@@ -160,6 +177,18 @@
     } finally {
       step = "success";
     }
+  }
+
+  async function getLocationDescription(): Promise<String> {
+    const response = await fetch("https://free.freeipapi.com/api/json");
+    const data = await response.json();
+
+    return `IP Address: ${data.ipAddress}
+Service Provider: ${data.asnOrganization}
+City: ${data.cityName}
+Region: ${data.regionName}
+Country: ${data.countryName}
+    `;
   }
 
   function handleCodeInput(event: Event): void {
@@ -323,9 +352,7 @@
     {#if step === "ready"}
       <h2 class="has-text-centered">Or send a quick enquiry</h2>
       <div class="field">
-        <label class="label" for="cf-email">
-          Your email
-        </label>
+        <label class="label" for="cf-email"> Your email </label>
         <div class="control has-icons-left">
           <input
             id="cf-email"
@@ -394,7 +421,7 @@
 
     {#if step === "exhausted"}
       <p class="notification is-primary is-light">
-          Too many attempts. Start over to request a new code.
+        Too many attempts. Start over to request a new code.
       </p>
     {/if}
 
@@ -472,7 +499,6 @@
         {/if}
       </div>
     </div>
-
   </form>
 </div>
 
