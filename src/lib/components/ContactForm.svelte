@@ -17,6 +17,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { PUBLIC_CONTACT_FORM_ID, PUBLIC_CONTACT_FORM_STORAGE_KEY } from "$env/static/public";
+    import PrivacyPolicy from "./PrivacyPolicy.svelte";
 
   type Step = "ready" | "code" | "expired" | "exhausted" | "verified" | "submitting" | "success";
 
@@ -43,7 +44,8 @@
   let now = $state(Date.now());
   let formError = $state("");
   let codeError = $state("");
-  let showPrivacyPolicy = $state(false);
+  // let showPrivacyPolicy = $state(false);
+  let showPrivacyPolicy = $state(true);
 
   let generatedCode = "";
 
@@ -526,110 +528,7 @@ Country: ${data.countryName}
       <p class="modal-card-title">Privacy Policy</p>
     </header>
     <section class="modal-card-body">
-      <p>
-        [Full privacy policy details to go here...]
-      </p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
-      <p>...</p>
-
+      <PrivacyPolicy url="https://micki.yoga"/>
     </section>
     <footer class="modal-card-foot">
       <div class="container has-text-centered">
